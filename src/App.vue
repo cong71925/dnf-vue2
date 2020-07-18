@@ -1,32 +1,56 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <el-container id="container" v-loading="$store.state.loading">
+    <el-header style="padding: 0 0;">
+      <navbar />
+    </el-header>
+    <el-main id="app">
+      <router-view />
+    </el-main>
+  </el-container>
 </template>
-
-<style lang="scss">
+<script>
+import Navbar from "./components/Navbar";
+export default {
+  components: { Navbar },
+  created() {
+    this.$store.dispatch("auth/getToken");
+  },
+  methods: {},
+  name: "App",
+  data() {
+    return {};
+  }
+};
+</script>
+<style>
+#container {
+  border-radius: 0px;
+  min-height: 100vh;
+}
+@media (max-width: 768px) {
+  #app {
+    padding: 0;
+  }
+}
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  background-color: rgba(255, 255, 255, 0.3);
 }
 
-#nav {
-  padding: 30px;
+body {
+  margin: 0px;
+}
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+body::before {
+  background-size: cover;
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  -webkit-filter: blur(2px);
+  filter: blur(2px);
+  background: url(/static/image/index.jpg) no-repeat;
 }
 </style>

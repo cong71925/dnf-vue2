@@ -1,18 +1,160 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <el-container>
+    <el-main id="index">
+      <h1>DNF-VUE.js</h1>
+      <el-divider content-position="left">公告</el-divider>
+      <div>
+        <p>注意！数据库回档了！(数据库时间点2019-12-12)</p>
+        <p>
+          由于我本人的失误，在没有备份的情况下对服务器进行了更新内核的操作，导致服务器无法开机(炸了)。
+          数据库每天都会备份一份到本地，隔一段时间再手动备份到云端。
+          而这次服务器直接无法开机了，我也没有办法把以前的备份取出来，而云端备份最早的版本是2019-12-12的，所有现在目前服务器回档的时间点就是这个
+          这次事件之后，我一定会加强数据的备份处理，已经每天保存一份数据库副本到云端了，不便之处，敬请谅解！
+        </p>
+      </div>
+      <el-divider content-position="left">项目说明</el-divider>
+      <div>
+        <p>
+          本项目主要面向于小团体，可以更方便地查看和管理每个群员的打团角色信息（方便群内打碟）。
+          本项目可以登记角色，记录角色每次修改的数据，将其历史数据以图表显示。
+          对于奶系角色，还可以计算唱歌和偏爱后的buff数值和对C提升率。
+          在团队内还能查看并排序团员的各项数据，以及伤害和buff的历史数据
+        </p>
+      </div>
+      <el-divider content-position="left">安全声明</el-divider>
+      <div>
+        <p>
+          前段时间的大面积盗号，搞得大家都人心惶惶的。如果你担心密码泄露的问题，那么仅当本网站，我建议大家使用123456作为登录密码。
+          （反正这破站的账号被盗了也没什么问题的）
+        </p>
+        <p>如果你不想用123456做密码，也没有问题。本站已强制开启了https，且密码在前端和后端都会经过哈希函数加密:</p>
+        <p>
+          <image :src="imgSrc[0]" />
+          <el-image :src="imgSrc[0]" :fit="'fit'" :preview-src-list="imgSrc"></el-image>
+        </p>
+        <p>上图是存放在数据库中的密码示例，这种加密是单向的，难以反向推出加密前的明文。</p>
+        <p>
+          本项目的前端部分已在
+          <el-link
+            href="https://github.com/cong71925/DNF-vue"
+            :underline="false"
+            target="_blank"
+          >Github</el-link>上开源。
+          后端用PHP写的，暂时没有开源的打算。
+        </p>
+      </div>
+      <el-divider content-position="left">创建团队说明</el-divider>
+      <div>
+        <p>
+          <el-image :src="imgSrc[3]" :fit="'fit'" :preview-src-list="imgSrc"></el-image>
+        </p>
+        <p>点击上方导航栏的我的小团体按钮，再点击搜索栏左侧的创建团队，输入相关信息即可创建团队。</p>
+        <p>
+          <el-image
+            :src="imgSrc[4]"
+            :fit="'contain'"
+            :preview-src-list="imgSrc"
+            style="height: 300px;width: 500px"
+          ></el-image>
+        </p>
+        <p>把新创建团队ID和加入密码分享给群友，他们就可以加入你的团队了。</p>
+      </div>
+      <el-divider content-position="left">加入团队说明</el-divider>
+      <div>
+        <p>
+          <el-image :src="imgSrc[5]" :fit="'fit'" :preview-src-list="imgSrc"></el-image>
+        </p>
+        <p>点击上方导航栏的我的小团体按钮，在搜索栏输入你要加入的团队ID，在弹出框输入团队加入密码后，点击右方的按钮，即可加入团队。</p>
+        <p>
+          <el-image :src="imgSrc[6]" :fit="'fit'" :preview-src-list="imgSrc"></el-image>
+        </p>
+      </div>
+      <el-divider content-position="left">角色登记说明</el-divider>
+      <div>
+        <p>C的登记没什么好说的，把绿纱袋15s20s的伤害登记进去就行了，吃多少药看自己。</p>
+        <p>奶登记是buff的数值：</p>
+        <p>
+          <el-image
+            :src="imgSrc[1]"
+            :preview-src-list="imgSrc"
+            :fit="'scale-down'"
+            style="height: 160px;width: 300px"
+          ></el-image>
+          <el-image
+            :src="imgSrc[2]"
+            :preview-src-list="imgSrc"
+            :fit="'scale-down'"
+            style="height: 160px;width: 300px"
+          ></el-image>
+        </p>
+        <p>奶妈和奶萝都是登记buff的数值就行了，不需要算上唱歌和偏爱，本项目会自动计算唱歌和偏爱后的数值和对C提升率。</p>
+        <p>奶爸请登记叠满二觉后的buff和太阳，有条件的可以测有魔王契约假紫光环之类的buff。</p>
+        <p>奶测buff可以找朋友进修炼场或者帝国竞技场，这里不再赘述。</p>
+      </div>
+      <el-divider content-position="left">提升率计算说明</el-divider>
+      <div>
+        <p>
+          为便于计算，计算提升率的模板C为3000力智，2400三攻，系统奶为8000力智，该模板C偏弱的原因是为了方便奶之间的横向比较。
+          因此计算出来的提升率仅有参考意义。
+        </p>
+      </div>
+      <el-divider content-position="left">补充</el-divider>
+      <div>
+        <p>
+          本项目的职业头像来源于colg的
+          <el-link
+            href="https://bbs.colg.cn/thread-7501852-1-1.html"
+            :underline="false"
+            target="_blank"
+            icon="el-icon-link"
+          >肥猫池塘</el-link>大佬，感谢大佬的制作与分享！
+        </p>
+        <p>
+          本站仅为个人学习研究性质，如果你发现网站打不开，那多半是忘了交钱导致vps停机，或者是ip被ban，届时请通过
+          <el-link
+            href="mailto:cong71925@gmail.com"
+            icon="el-icon-message"
+            :underline="false"
+            target="_blank"
+          >cong71925@gmail.com</el-link>联系我，
+          如果你发现了什么bug或者有什么建议，也可以发邮件至我的邮箱。
+        </p>
+      </div>
+    </el-main>
+  </el-container>
 </template>
-
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
 export default {
-  name: 'Home',
-  components: {
-    HelloWorld
+  methods: {
+    setHistoricalDataVisible(){
+      this.historicalVisible = true
+    }
+  },
+  data() {
+    const imgSrc = [
+      "/static/image/index/01.png",
+      "/static/image/index/buffDefault.jpg",
+      "/static/image/index/buffBurst.jpg",
+      "/static/image/index/02.png",
+      "/static/image/index/03.png",
+      "/static/image/index/04.png",
+      "/static/image/index/05.png"
+    ];
+    return {
+      imgSrc
+    };
   }
-}
+};
 </script>
+<style>
+#index p {
+  text-indent: 2em;
+}
+.el-link {
+  text-indent: 0;
+}
+.el-image {
+  text-indent: 0;
+  max-width: 90%;
+}
+</style>
