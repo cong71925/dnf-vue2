@@ -51,6 +51,6 @@ body::before {
   z-index: -1;
   -webkit-filter: blur(2px);
   filter: blur(2px);
-  background: url(/static/image/index.jpg) no-repeat;
+  background: url('../public/static/image/index.jpg') no-repeat;
 }
 </style>

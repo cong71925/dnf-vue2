@@ -22,10 +22,12 @@ export default {
   data() {
     return {
       chartExtend: {
-        "series.0.label": {
-          show: true,
-          position: "outside",
-          formatter: "{b}: {c} ({d}%)"
+        series: {
+          label: {
+            show: true,
+            position: "outside",
+            formatter: "{b}: {c} ({d}%)"
+          }
         }
       }
     };

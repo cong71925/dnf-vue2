@@ -9,11 +9,21 @@
             <h3>纯C</h3>
             <el-badge type="info" :value="centerList.length" />
           </template>
-          <!-- <el-button-group class="button-group">
-            <el-button size="mini">职业大系</el-button>
-            <el-button size="mini">转职系</el-button>
-          </el-button-group> -->
+          <el-button-group class="button-group">
+            <el-button
+              size="mini"
+              :type="centerViewType==='table'?'primary':''"
+              @click="centerViewType='table'"
+            >表格</el-button>
+            <el-button
+              size="mini"
+              :type="centerViewType==='chart'?'primary':''"
+              @click="centerViewType='chart'"
+            >条形图</el-button>
+          </el-button-group>
+          <centerChart v-if="centerViewType==='chart'" :data="centerList" :height="centerList.length * 70+'px'" />
           <el-table
+            v-show="centerViewType==='table'"
             :data="centerList"
             style="width: 100%"
             :default-sort="{prop: 'damage_20s', order: 'descending'}"
@@ -42,7 +52,21 @@
             <h3>辅C</h3>
             <el-badge type="info" :value="supportList.length" />
           </template>
+          <el-button-group class="button-group">
+            <el-button
+              size="mini"
+              :type="supportViewType==='table'?'primary':''"
+              @click="supportViewType='table'"
+            >表格</el-button>
+            <el-button
+              size="mini"
+              :type="supportViewType==='chart'?'primary':''"
+              @click="supportViewType='chart'"
+            >条形图</el-button>
+          </el-button-group>
+          <centerChart v-if="supportViewType==='chart'" :data="supportList" :height="supportList.length * 70+'px'" />
           <el-table
+            v-show="supportViewType==='table'"
             :data="supportList"
             style="width: 100%"
             :default-sort="{prop: 'damage_20s', order: 'descending'}"
@@ -72,6 +96,18 @@
             <el-badge type="info" :value="bufferData.length" />
           </template>
           <el-button-group class="button-group">
+            <el-button
+              size="mini"
+              :type="bufferViewType==='table'?'primary':''"
+              @click="bufferViewType='table'"
+            >表格</el-button>
+            <el-button
+              size="mini"
+              :type="bufferViewType==='chart'?'primary':''"
+              @click="bufferViewType='chart'"
+            >条形图</el-button>
+          </el-button-group>
+          <el-button-group class="button-group">
             <el-button size="mini" :type="boost?'primary':''" @click="boost = !boost">唱歌</el-button>
             <el-button
               size="mini"
@@ -79,7 +115,9 @@
               @click="favoritism =! favoritism"
             >偏爱</el-button>
           </el-button-group>
+          <bufferChart v-if="bufferViewType==='chart'" :data="bufferList" :height="bufferData.length * 70+'px'" />
           <el-table
+            v-show="bufferViewType==='table'"
             :data="bufferList"
             style="width: 100%"
             :default-sort="{prop: 'LiftRatioBurst', order: 'descending'}"
@@ -112,7 +150,10 @@
 </template>
 <script>
 import adapter from "@/utils/adapter.js";
+import centerChart from "./components/charts/Center";
+import bufferChart from "./components/charts/Buffer";
 export default {
+  components: { centerChart, bufferChart },
   created() {},
   computed: {
     centerList() {
@@ -217,7 +258,10 @@ export default {
   data() {
     return {
       boost: true,
-      favoritism: true
+      favoritism: true,
+      centerViewType: "table",
+      supportViewType: "table",
+      bufferViewType: "table"
     };
   }
 };
@@ -235,5 +279,8 @@ export default {
   border-radius: 4px;
   overflow: hidden;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+}
+.button-group {
+  margin-right: 10px;
 }
 </style>

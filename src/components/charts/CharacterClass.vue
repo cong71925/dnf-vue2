@@ -4,16 +4,40 @@
       <div class="title">职业系分布:</div>
       <div>
         <el-button-group class="button-group">
-          <el-button @click="changeClassType('class_0')" :type="classType==='class_0'?'primary':''" size="mini">职业大系</el-button>
-          <el-button @click="changeClassType('class_1')" :type="classType==='class_1'?'primary':''" size="mini">转职系</el-button>
+          <el-button
+            @click="changeClassType('class_0')"
+            :type="classType==='class_0'?'primary':''"
+            size="mini"
+          >职业大系</el-button>
+          <el-button
+            @click="changeClassType('class_1')"
+            :type="classType==='class_1'?'primary':''"
+            size="mini"
+          >转职系</el-button>
         </el-button-group>
         <el-button-group class="button-group">
-          <el-button icon="el-icon-pie-chart" @click="changeType('pie')" :type="type==='pie'?'primary':''" size="mini">饼图</el-button>
-          <el-button icon="el-icon-data-analysis" @click="changeType('bar')" :type="type==='bar'?'primary':''" size="mini">条形图</el-button>
+          <el-button
+            icon="el-icon-pie-chart"
+            @click="changeType('pie')"
+            :type="type==='pie'?'primary':''"
+            size="mini"
+          >饼图</el-button>
+          <el-button
+            icon="el-icon-data-analysis"
+            @click="changeType('bar')"
+            :type="type==='bar'?'primary':''"
+            size="mini"
+          >条形图</el-button>
         </el-button-group>
       </div>
     </div>
-    <ve-chart :data="chartData" :extend="chartExtend" :height="height" :settings="chartSettings" />
+    <ve-chart
+      :data="chartData"
+      :extend="chartExtend"
+      :height="height"
+      :settings="chartSettings"
+      :legend-visible="type!=='bar'"
+    />
   </div>
 </template>
 <script>
@@ -62,17 +86,21 @@ export default {
       let result = {};
       if (this.type === "pie") {
         result = {
-          "series.0.label": {
-            show: true,
-            position: "outside",
-            formatter: "{b}: {c} ({d}%)"
+          series: {
+            label: {
+              show: true,
+              position: "outside",
+              formatter: "{b}: {c} ({d}%)"
+            }
           }
         };
       }
       if (this.type === "bar") {
         result = {
-          "series.0.label": {
-            show: true
+          series: {
+            label: {
+              show: true
+            }
           }
         };
       }

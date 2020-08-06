@@ -1,30 +1,20 @@
 <template>
   <el-container>
     <el-main id="index">
-      <h1>DNF-VUE.js</h1>
-      <el-divider content-position="left">公告</el-divider>
-      <div>
-        <p>注意！数据库回档了！(数据库时间点2019-12-12)</p>
-        <p>
-          由于我本人的失误，在没有备份的情况下对服务器进行了更新内核的操作，导致服务器无法开机(炸了)。
-          数据库每天都会备份一份到本地，隔一段时间再手动备份到云端。
-          而这次服务器直接无法开机了，我也没有办法把以前的备份取出来，而云端备份最早的版本是2019-12-12的，所有现在目前服务器回档的时间点就是这个
-          这次事件之后，我一定会加强数据的备份处理，已经每天保存一份数据库副本到云端了，不便之处，敬请谅解！
-        </p>
-      </div>
+      <h1>DNF团队数据管理系统</h1>
       <el-divider content-position="left">项目说明</el-divider>
       <div>
         <p>
-          本项目主要面向于小团体，可以更方便地查看和管理每个群员的打团角色信息（方便群内打碟）。
+          本项目主要面向于小团体，可以更方便地查看和管理每个群员的打团角色信息。
           本项目可以登记角色，记录角色每次修改的数据，将其历史数据以图表显示。
           对于奶系角色，还可以计算唱歌和偏爱后的buff数值和对C提升率。
-          在团队内还能查看并排序团员的各项数据，以及伤害和buff的历史数据
+          在团队内还能通过表格或图表查看团员的角色的各项数据，以及伤害和buff的历史数据
         </p>
       </div>
       <el-divider content-position="left">安全声明</el-divider>
       <div>
         <p>
-          前段时间的大面积盗号，搞得大家都人心惶惶的。如果你担心密码泄露的问题，那么仅当本网站，我建议大家使用123456作为登录密码。
+          如果你担心密码泄露的问题，那么仅当本网站，我建议大家使用123456作为登录密码。
           （反正这破站的账号被盗了也没什么问题的）
         </p>
         <p>如果你不想用123456做密码，也没有问题。本站已强制开启了https，且密码在前端和后端都会经过哈希函数加密:</p>
@@ -132,13 +122,13 @@ export default {
   },
   data() {
     const imgSrc = [
-      "/static/image/index/01.png",
-      "/static/image/index/buffDefault.jpg",
-      "/static/image/index/buffBurst.jpg",
-      "/static/image/index/02.png",
-      "/static/image/index/03.png",
-      "/static/image/index/04.png",
-      "/static/image/index/05.png"
+      "./static/image/index/01.png",
+      "./static/image/index/buffDefault.jpg",
+      "./static/image/index/buffBurst.jpg",
+      "./static/image/index/02.png",
+      "./static/image/index/03.png",
+      "./static/image/index/04.png",
+      "./static/image/index/05.png"
     ];
     return {
       imgSrc

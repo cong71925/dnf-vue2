@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <el-aside width="auto">
-      <el-menu :router="true" :collapse="isCollapse" :default-active="activeName">
+      <!-- <el-menu :router="true" :collapse="isCollapse" :default-active="activeName">
         <el-menu-item index="/account/home">
           <i class="el-icon-odometer"></i>
           <span slot="title">个人信息</span>
@@ -14,7 +14,23 @@
           <i class="el-icon-setting"></i>
           <span slot="title">修改密码</span>
         </el-menu-item>
-      </el-menu>
+      </el-menu>-->
+      <sidebar :activeIndex="activeName">
+        <sidebar-item index="/account/home">
+          <i class="el-icon-odometer"></i>
+          <span slot="title">个人信息</span>
+        </sidebar-item>
+        <sidebar-item>
+          <i class="el-icon-info"></i>
+          <span slot="title">信息修改</span>
+        </sidebar-item>
+        <sidebar-item>
+          <i class="el-icon-setting"></i>
+          <span slot="title">修改密码</span>
+        </sidebar-item>
+
+
+      </sidebar>
     </el-aside>
     <el-main>
       <router-view />
@@ -22,28 +38,32 @@
   </el-container>
 </template>
 <script>
+import sidebar from "@/components/Sidebar.vue";
+import sidebarItem from "@/components/SidebarItem.vue";
+
 export default {
+  components: { sidebar: sidebar, "sidebar-item": sidebarItem },
   computed: {
-    activeName(){
-      return this.$route.path
-    }
+    activeName() {
+      return this.$route.path;
+    },
   },
   watch: {
     screenWidth(val) {
       if (!this.timer) {
-        this.screenWidth = val
-        this.timer = true
-        let that = this
-        setTimeout(function() {
+        this.screenWidth = val;
+        this.timer = true;
+        let that = this;
+        setTimeout(function () {
           if (that.screenWidth < 768) {
-            that.isCollapse = true
+            that.isCollapse = true;
           } else {
-            that.isCollapse = false
+            that.isCollapse = false;
           }
-          that.timer = false
-        }, 1000)
+          that.timer = false;
+        }, 1000);
       }
-    }
+    },
   },
   created() {
     this.getData();
@@ -51,42 +71,41 @@ export default {
   mounted() {
     window.onresize = () => {
       return (() => {
-        window.screenWidth = document.body.clientWidth
-        this.screenWidth = window.screenWidth
-      })()
-    }
+        window.screenWidth = document.body.clientWidth;
+        this.screenWidth = window.screenWidth;
+      })();
+    };
   },
   methods: {
     getData() {
-      this.$store.dispatch("account/getUserInfo").catch(msg => {
+      this.$store.dispatch("account/getUserInfo").catch((msg) => {
         this.$message({
           showClose: true,
           type: "error",
-          message: msg
+          message: msg,
         });
       });
-      this.$store.dispatch("account/getCharacterTypeNums").catch(msg => {
+      this.$store.dispatch("account/getCharacterTypeNums").catch((msg) => {
         this.$message({
           showClose: true,
           type: "error",
-          message: msg
+          message: msg,
         });
       });
-      
-    }
+    },
   },
   data() {
-    let screenWidth = document.body.clientWidth
-    let isCollapse = false
-    if(screenWidth < 768){
-      isCollapse = true
+    let screenWidth = document.body.clientWidth;
+    let isCollapse = false;
+    if (screenWidth < 768) {
+      isCollapse = true;
     }
     return {
       screenWidth,
-      isCollapse
-    }
-  }
-}
+      isCollapse,
+    };
+  },
+};
 </script>
 <style scoped>
 .el-menu {

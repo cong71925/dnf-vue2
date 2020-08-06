@@ -29,9 +29,6 @@
               <el-form-item label="团队名称">
                 <el-input type="text" maxlength="20" v-model="form.group_name" show-word-limit></el-input>
               </el-form-item>
-              <el-form-item label="申请密码">
-                <el-input show-password maxlength="6" v-model="form.join_password"></el-input>
-              </el-form-item>
               <el-form-item label="允许加入">
                 <el-switch v-model="form.attendable"></el-switch>
               </el-form-item>
@@ -39,6 +36,12 @@
               <el-form-item>
                 <el-button type="danger" @click="removeGroup">删除团队</el-button>
                 <el-button type="primary" @click="updateGroup">提交修改</el-button>
+              </el-form-item>
+              <el-divider></el-divider>
+              <el-form-item label="申请密码">
+                <el-input show-password maxlength="6" v-model="form.join_password">
+                  <el-button slot="append" icon="el-icon-search"></el-button>
+                </el-input>
               </el-form-item>
             </el-form>
           </el-card>
