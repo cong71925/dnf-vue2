@@ -21,7 +21,7 @@
               @click="centerViewType='chart'"
             >条形图</el-button>
           </el-button-group>
-          <centerChart v-if="centerViewType==='chart'" :data="centerList" :height="centerList.length * 70+'px'" />
+          <centerChart v-if="centerViewType==='chart'" :data="centerList" :height="centerList.length * 70 + 100 +'px'" />
           <el-table
             v-show="centerViewType==='table'"
             :data="centerList"
@@ -64,7 +64,7 @@
               @click="supportViewType='chart'"
             >条形图</el-button>
           </el-button-group>
-          <centerChart v-if="supportViewType==='chart'" :data="supportList" :height="supportList.length * 70+'px'" />
+          <centerChart v-if="supportViewType==='chart'" :data="supportList" :height="supportList.length * 70 + 100 +'px'" />
           <el-table
             v-show="supportViewType==='table'"
             :data="supportList"
@@ -115,7 +115,7 @@
               @click="favoritism =! favoritism"
             >偏爱</el-button>
           </el-button-group>
-          <bufferChart v-if="bufferViewType==='chart'" :data="bufferList" :height="bufferData.length * 70+'px'" />
+          <bufferChart v-if="bufferViewType==='chart'" :data="bufferList" :height="bufferData.length * 70 + 100 +'px'" />
           <el-table
             v-show="bufferViewType==='table'"
             :data="bufferList"

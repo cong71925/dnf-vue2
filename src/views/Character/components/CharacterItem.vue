@@ -3,7 +3,7 @@
     <el-card>
       <div class="character-info">
         <div class="title">
-          <el-image style="width: 40px; height: 40px" :src="url" :fit="'fit'"></el-image>
+          <el-image style="width: 40px; height: 40px" :src="imgUrl" fit="fit"></el-image>
           <div>{{ character.character_name }}</div>
         </div>
         <el-row class="context">
@@ -34,116 +34,15 @@
         </el-row>
       </div>
       <el-divider />
-      <el-button
-        type="primary"
-        icon="el-icon-s-marketing"
-        @click="setHistoricalDataVisible"
-        style="width:100%;"
-      >历史数据</el-button>
-      <p></p>
-      <el-collapse accordion>
-        <el-collapse-item title="修改信息">
-          <el-form :model="form" ref="form" label-width="90px" :rules="rules">
-            <el-form-item label="角色名:" prop="character_name">
-              <el-input size="mini" v-model="form.character_name" :disabled="modify"></el-input>
-            </el-form-item>
-            <el-form-item label="职责" prop="job">
-              <el-cascader
-                v-model="form.job"
-                :options="job"
-                size="mini"
-                :props="{ expandTrigger: 'hover' }"
-                :disabled="modify"
-              ></el-cascader>
-            </el-form-item>
-            <el-form-item label="职业" prop="class">
-              <el-cascader
-                v-model="form.class"
-                :options="classSub"
-                size="mini"
-                :props="{ expandTrigger: 'hover' }"
-                :disabled="modify"
-              ></el-cascader>
-            </el-form-item>
-            <div v-if="job_select=='奶'">
-              <el-form-item label="常驻力智" prop="buff_default">
-                <el-input
-                  size="mini"
-                  v-model.number="form.buff_default"
-                  :disabled="modify"
-                  show-word-limit
-                  maxlength="5"
-                ></el-input>
-              </el-form-item>
-              <el-form-item label="常驻三攻" prop="buff_atk">
-                <el-input
-                  size="mini"
-                  v-model.number="form.buff_atk"
-                  :disabled="modify"
-                  show-word-limit
-                  maxlength="5"
-                ></el-input>
-              </el-form-item>
-              <el-form-item label="太阳" prop="buff_burst">
-                <el-input
-                  size="mini"
-                  v-model.number="form.buff_burst"
-                  :disabled="modify"
-                  show-word-limit
-                  maxlength="5"
-                ></el-input>
-              </el-form-item>
-            </div>
-            <div v-else>
-              <el-form-item label="15s伤害" prop="damage_15s">
-                <el-input
-                  size="mini"
-                  v-model.number="form.damage_15s"
-                  :disabled="modify"
-                  show-word-limit
-                  maxlength="5"
-                >
-                  <template slot="append">e</template>
-                </el-input>
-              </el-form-item>
-              <el-form-item label="20s伤害" prop="damage_20s">
-                <el-input
-                  size="mini"
-                  v-model.number="form.damage_20s"
-                  :disabled="modify"
-                  show-word-limit
-                  maxlength="5"
-                >
-                  <template slot="append">e</template>
-                </el-input>
-              </el-form-item>
-            </div>
-          </el-form>
-          <el-divider />
-          <div v-if="modify">
-            <el-button-group style="width:100%;">
-              <el-button
-                type="danger"
-                @click="removeCharacter()"
-                icon="el-icon-delete"
-                style="width:50%;"
-              >删除</el-button>
-              <el-button @click="setModifyFalse()" icon="el-icon-edit" style="width:50%;">修改</el-button>
-            </el-button-group>
-          </div>
-          <div v-else>
-            <el-button-group style="width:100%;">
-              <el-button
-                @click="setModifyTrue()"
-                type="info"
-                style="width:50%;"
-                icon="el-icon-refresh-left"
-              >取消</el-button>
-              <el-button @click="submitForm('form')" icon="el-icon-upload2" style="width:50%;">提交</el-button>
-            </el-button-group>
-          </div>
-        </el-collapse-item>
-      </el-collapse>
+      <el-button-group style="width:100%;">
+        <el-button
+          type="primary"
+          icon="el-icon-s-marketing"
+          @click="setHistoricalDataVisible"
+          style="width:50%;"
+        >历史数据</el-button>
+        <el-button type="primary" icon="el-icon-edit" style="width:50%;" @click="createPanel">修改信息</el-button>
+      </el-button-group>
     </el-card>
   </el-col>
 </template>
@@ -158,18 +57,23 @@ export default {
         bufferData: data,
         hasSystemBuff: false,
         boost: this.boost,
-        favoritism: this.favoritism
+        favoritism: this.favoritism,
       };
       data.liftRatioDefault = adapter.GetLiftRatio(payload);
       payload.hasSystemBuff = true;
       data.liftRatioBurst = adapter.GetLiftRatio(payload);
       data = adapter.BufferDataAdapter(payload);
       return data;
-    }
+    },
+    imgUrl() {
+      const class_0 = this.character.class_0;
+      const class_1 = this.character.class_1;
+      return `static/image/face/${class_0}/${class_1}.png`;
+    },
   },
   methods: {
     submitForm(formName) {
-      this.$refs[formName].validate(valid => {
+      this.$refs[formName].validate((valid) => {
         if (valid) {
           this.modifyCharacter();
         } else {
@@ -181,131 +85,17 @@ export default {
     setHistoricalDataVisible() {
       this.$emit("getHistoricalData", this.character);
     },
-    setModifyFalse() {
-      this.modify = false;
+    createPanel() {
+      this.$emit("createPanel", {
+        title: "修改信息:" + this.character.character_name,
+        type: "modify",
+        data: this.character,
+      });
     },
-    setModifyTrue() {
-      this.modify = true;
-    },
-    removeCharacter() {
-      this.$confirm("此操作将永久删除该角色, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
-        .then(() => {
-          this.$store
-            .dispatch("character/deleteCharacter", this.character.id)
-            .then(() => {
-              this.$message({
-                showClose: true,
-                type: "success",
-                message: "删除成功!"
-              });
-              this.$emit("update");
-            })
-            .catch(msg => {
-              this.$message({
-                showClose: true,
-                type: "error",
-                message: msg
-              });
-            });
-        })
-        .catch(() => {
-          this.$message({
-            showClose: true,
-            type: "info",
-            message: "已取消删除"
-          });
-        });
-    },
-    modifyCharacter() {
-      this.$store
-        .dispatch("character/updateCharacter", this.form)
-        .then(() => {
-          this.$message({
-            showClose: true,
-            type: "success",
-            message: "修改成功!"
-          });
-          this.setModifyTrue();
-          this.url =
-            "static/image/face/" +
-            this.form.class[0] +
-            "/" +
-            this.form.class[1] +
-            ".png";
-          this.$emit("update");
-        })
-        .catch(msg => {
-          this.$message({
-            showClose: true,
-            type: "error",
-            message: msg
-          });
-        });
-    }
   },
   data() {
-    const job = require("@/data/job.json").options;
-    const classSub = require("@/data/class.json").options;
-    let modify = true;
-    let class_select = [];
-    let job_select = [];
-    class_select[0] = this.character.class_0;
-    class_select[1] = this.character.class_1;
-    job_select[0] = this.character.job;
-    let url =
-      "static/image/face/" +
-      this.character.class_0 +
-      "/" +
-      this.character.class_1 +
-      ".png";
-    let form = {
-      character_id: this.character.id,
-      character_name: this.character.character_name,
-      job: job_select,
-      class: class_select,
-      damage_15s: this.character.damage_15s,
-      damage_20s: this.character.damage_20s,
-      buff_default: this.character.buff_default,
-      buff_atk: this.character.buff_atk,
-      buff_burst: this.character.buff_burst
-    };
-    const rules = {
-      character_name: [
-        { required: true, message: "请输入角色名称", trigger: "blur" },
-        { min: 1, max: 20, message: "长度在 0 到 20 个字符", trigger: "blur" }
-      ],
-      job: [
-        {
-          type: "array",
-          required: true,
-          message: "请选择职责",
-          trigger: "change"
-        }
-      ],
-      class: [
-        {
-          type: "array",
-          required: true,
-          message: "请选择职业",
-          trigger: "change"
-        }
-      ]
-    };
-    return {
-      modify,
-      class_select,
-      job_select,
-      rules,
-      form,
-      url,
-      classSub,
-      job
-    };
-  }
+    return {};
+  },
 };
 </script>
 <style scoped>

@@ -8,18 +8,6 @@ const mutations = {
     setUserInfo(state, payload) {
         state.userInfo = payload
     },
-    logout(state) {
-        state.userID = 0
-        state.token = null
-        state.isLogin = false
-        localStorage.removeItem('userID')
-        localStorage.removeItem('token')
-    },
-    setToken(state, payload) {
-        state.userID = payload.userID
-        state.token = payload.token
-        state.isLogin = true
-    },
     setCharacterTypeNums(state, payload){
         state.characterTypeNums = payload
     }
@@ -54,25 +42,6 @@ const actions = {
                     if (response.data.code === 0) {
                         context.commit('setCharacterTypeNums', response.data.data)
                         console.log(response.data)
-                        resolve()
-                    } else {
-                        reject(response.data.msg)
-                    }
-                })
-                .catch(() => {
-                    reject("网络连接错误或服务器无响应！")
-                })
-        })
-    },
-    logout(context) {
-        return new Promise((resolve, reject) => {
-            axios({
-                url: 'logout',
-                method: 'get'
-            })
-                .then(response => {
-                    if (response.data.code === 0) {
-                        context.commit('logout')
                         resolve()
                     } else {
                         reject(response.data.msg)

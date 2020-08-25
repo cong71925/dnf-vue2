@@ -134,6 +134,6 @@ export default {
   font-weight: 600;
 }
 .button-group {
-  margin: 0 4px 0 4px;
+  margin: 4px 4px 4px 4px;
 }
 </style>

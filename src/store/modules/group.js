@@ -250,6 +250,7 @@ const actions = {
         })
     },
     updateGroup(context, payload) {
+        console.log(String(payload.attendable))
         return new Promise((resolve, reject) => {
             axios({
                 url: 'group/' + payload.id,
@@ -337,6 +338,27 @@ const actions = {
             })
                 .then(response => {
                     console.log(response.data)
+                    if (response.data.code === 0) {
+                        resolve()
+                    } else {
+                        reject(response.data.msg)
+                    }
+                })
+                .catch(() => {
+                    reject("网络连接错误或服务器无响应！")
+                })
+        })
+    },
+    updatePassword(context, payload){
+        return new Promise((resolve, reject) => {
+            axios({
+                url: 'group/password/' + payload.id,
+                method: 'put',
+                data: {
+                    join_password: payload.join_password
+                }
+            })
+                .then(response => {
                     if (response.data.code === 0) {
                         resolve()
                     } else {

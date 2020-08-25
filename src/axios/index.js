@@ -27,6 +27,8 @@ axios.interceptors.response.use(function (config) {
     // token过期时注销
     if(config.data.code === -201){
         store.commit("auth/logout");
+    } else {
+        store.commit('auth/refreshExpireTime')
     }
     return config
 }, function (error) {

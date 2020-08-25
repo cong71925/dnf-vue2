@@ -48,7 +48,7 @@ const actions = {
                     if (response.data.code === 0) {
                         console.log(response.data)
                         context.commit('setHistoricalList', response.data.data)
-                        resolve()
+                        resolve(response.data.data)
                     } else {
                         reject(response.data.msg)
                     }
@@ -156,6 +156,14 @@ const actions = {
     },
 
 }
-const getters = {}
+const getters = {
+    characterMap: state => {
+        let result = new Map()
+        state.characterList.forEach(element => {
+            result.set(element.id, element)
+        });
+        return result
+    },
+}
 
 export default { state, mutations, actions, getters, namespaced: true }

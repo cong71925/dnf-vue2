@@ -24,7 +24,7 @@
       </el-collapse-transition>
       <el-row :gutter="20">
         <div v-for="item in group" :key="item.id">
-          <groupItem :group="item" />
+          <group-item class="group-item" :group="item" />
         </div>
       </el-row>
       <groupCreate :dialogVisible.sync="dialogVisible" @update="getData" />
@@ -51,7 +51,7 @@ import groupCreate from "./components/GroupCreate";
 import groupSearch from "./components/GroupSearch";
 export default {
   props: ["page"],
-  components: { groupItem, groupCreate, groupSearch },
+  components: { "group-item": groupItem, groupCreate, groupSearch },
   created: function(){
     this.getData(this.page)
   },
@@ -111,5 +111,8 @@ export default {
 <style scoped>
 .card {
   text-align: center;
+}
+.group-item {
+  margin: 5px 0 5px 0;
 }
 </style>

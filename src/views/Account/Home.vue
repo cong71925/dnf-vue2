@@ -42,16 +42,16 @@
 
       <el-col :xs="24" :lg="12">
         <el-card>
-          <CharacterTypeCharts :data="characterTypeNums" />
+          <character-type-charts :data="characterTypeNums" />
         </el-card>
       </el-col>
     </el-row>
   </div>
 </template>
 <script>
-import CharacterTypeCharts from "@/components/charts/CharacterType.vue";
+import characterTypeCharts from "@/components/charts/CharacterType.vue";
 export default {
-  components: { CharacterTypeCharts },
+  components: { "character-type-charts": characterTypeCharts },
   computed: {
     userInfo() {
       return this.$store.state.account.userInfo;
@@ -75,7 +75,7 @@ export default {
 }
 .info-left {
   font-weight: 600;
-  width: 20%;
+  min-width: 20%;
 }
 .info-right {
   margin-left: 20px;

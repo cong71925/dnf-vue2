@@ -58,9 +58,9 @@ const routes = [
   {
     path: '/character/:page?',
     name: 'Character',
-    component: () => import('../views/Character/Home.vue'),
-    props: true,
-    meta: { requiresAuth: true }
+    component: () => import('../views/Character/Index.vue'),
+    meta: { requiresAuth: true },
+    props: true
   },
   {
     path: '/group/:page?',
@@ -113,14 +113,14 @@ const router = new VueRouter({
 })
 // 导航守卫
 router.beforeEach((to, from, next) => {
-  if (to.meta.requiresAuth && !sessionStorage.getItem('isLogin')){
+  if (to.meta.requiresAuth && !localStorage.getItem('isLogin')) {
     Message({
       showClose: true,
       type: "error",
       message: "请先登录"
     })
-    next('/')
-  } 
+    next('/login')
+  }
   else next()
 })
 

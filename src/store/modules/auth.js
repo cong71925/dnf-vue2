@@ -4,7 +4,9 @@ const state = {
     userID: 0,
     token: null,
     isLogin: false,
-    nickname: ""
+    nickname: "",
+    expire: 0,
+    expireTime: 0
 }
 const mutations = {
     login(state, payload) {
@@ -12,25 +14,41 @@ const mutations = {
         state.token = payload.token
         state.isLogin = true
         state.nickname = payload.nickname
-        sessionStorage.setItem('userID', payload.userID)
-        sessionStorage.setItem('token', payload.token)
-        sessionStorage.setItem('isLogin', true)
-        sessionStorage.setItem('nickname', payload.nickname)
+        state.expire = payload.expire
+        state.expireTime = new Date().getTime() / 1000 + payload.expire
+        localStorage.setItem('userID', payload.userID)
+        localStorage.setItem('token', payload.token)
+        localStorage.setItem('isLogin', true)
+        localStorage.setItem('nickname', payload.nickname)
+        localStorage.setItem('expire', payload.expire)
+        localStorage.setItem('expireTime', state.expireTime)
     },
     logout(state) {
         state.userID = 0
         state.token = null
         state.isLogin = false
-        sessionStorage.removeItem('userID')
-        sessionStorage.removeItem('token')
-        sessionStorage.removeItem('isLogin')
-        sessionStorage.removeItem('nickname')
+        state.nickname = null
+        state.expire = 0
+        state.expireTime = 0
+        localStorage.removeItem('userID')
+        localStorage.removeItem('token')
+        localStorage.removeItem('isLogin')
+        localStorage.removeItem('nickname')
+        localStorage.removeItem('expire')
+        localStorage.removeItem('expireTime')
     },
     setToken(state, payload) {
         state.userID = payload.userID
         state.token = payload.token
         state.isLogin = true
         state.nickname = payload.nickname
+        state.expire = payload.expire
+        state.expireTime = payload.expireTime
+    },
+    // 刷新token有效期
+    refreshExpireTime(state) {
+        state.expireTime = new Date().getTime() / 1000 + state.expire
+        localStorage.setItem('expireTime', state.expireTime)
     }
 }
 const actions = {
@@ -105,18 +123,26 @@ const actions = {
         })
     },
     getToken(context) {
-        if (sessionStorage.getItem('isLogin')) {
-            const userID = sessionStorage.getItem('userID')
-            const token = sessionStorage.getItem('token')
-            const nickname = sessionStorage.getItem('nickname')
-            context.commit('setToken', {
-                userID: userID,
-                token: token,
-                nickname: nickname
-            })
+        if (localStorage.getItem('isLogin')) {
+            const userID = Number(localStorage.getItem('userID'))
+            const token = localStorage.getItem('token')
+            const nickname = localStorage.getItem('nickname')
+            const expire = Number(localStorage.getItem('expire'))
+            const expireTime = Number(localStorage.getItem('expireTime'))
+            const time = new Date().getTime() / 1000
+            if (time > expireTime) {
+                context.commit('logout')
+            } else {
+                context.commit('setToken', {
+                    userID: userID,
+                    token: token,
+                    nickname: nickname,
+                    expire: expire,
+                    expireTime: expireTime
+                })
+            }
         }
     }
-
 }
 const getters = {}
 

@@ -9,9 +9,9 @@
   </el-container>
 </template>
 <script>
-import Navbar from "./components/Navbar";
+import navbar from "@/Navbar";
 export default {
-  components: { Navbar },
+  components: { navbar: navbar },
   created() {
     this.$store.dispatch("auth/getToken");
   },
@@ -19,7 +19,7 @@ export default {
   name: "App",
   data() {
     return {};
-  }
+  },
 };
 </script>
 <style>
@@ -51,6 +51,6 @@ body::before {
   z-index: -1;
   -webkit-filter: blur(2px);
   filter: blur(2px);
-  background: url('../public/static/image/index.jpg') no-repeat;
+  background: url("../public/static/image/index.jpg") no-repeat;
 }
 </style>

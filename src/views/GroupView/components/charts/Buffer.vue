@@ -1,5 +1,5 @@
 <template>
-  <ve-bar :data="chartData" :extend="chartExtend" :height="height" :settings="chartSettings" />
+  <ve-bar :data="chartData" :extend="chartExtend" :height="height" :settings="chartSettings" :not-set-unchange="['legend']" />
 </template>
 <script>
 export default {

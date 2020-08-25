@@ -1,17 +1,35 @@
 <template>
   <div class="sidebar">
-    <slot :activeIndex="activeIndex"></slot>
+    <slot></slot>
   </div>
 </template>
 <script>
 export default {
   name: "sidebar",
-  methods: {},
-  props: {
-    activeIndex: String
+  watch: {
+    activeIndex(val) {
+      this.$children.forEach((value) => {
+        value.activeIndex = val;
+      });
+    },
+    router(val) {
+      this.$children.forEach((value) => {
+        value.router = val;
+      });
+    },
   },
-  data() {
-    return {};
+  mounted() {
+    this.$children.forEach((value) => {
+      value.activeIndex = this.activeIndex;
+      value.router = this.router;
+    });
+  },
+  props: {
+    activeIndex: String,
+    router: {
+      type: Boolean,
+      default: false,
+    },
   },
 };
 </script>

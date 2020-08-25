@@ -1,24 +1,33 @@
 <template>
   <el-container>
     <el-aside width="auto">
-      <el-menu :default-active="activeName" :collapse="isCollapse">
-        <el-menu-item index="GroupViewHome" @click="goto('GroupViewHome')">
+      <sidebar :activeIndex="activeName">
+        <sidebar-item :index="`/groupview/${id}/home`" tooltip="团队总览">
           <i class="el-icon-odometer"></i>
-          <span>团队总览</span>
-        </el-menu-item>
-        <el-menu-item index="GroupViewMember" @click="goto('GroupViewMember')">
+          <span slot="title">团队总览</span>
+        </sidebar-item>
+        <sidebar-item
+          :index="`/groupview/${id}/member`"
+          tooltip="成员信息"
+        >
           <i class="el-icon-s-custom"></i>
-          <span>成员信息</span>
-        </el-menu-item>
-        <el-menu-item index="GroupViewCharacter" @click="goto('GroupViewCharacter')">
+          <span slot="title">成员信息</span>
+        </sidebar-item>
+        <sidebar-item
+          :index="`/groupview/${id}/character`"
+          tooltip="角色总览"
+        >
           <i class="el-icon-user"></i>
           <span slot="title">角色总览</span>
-        </el-menu-item>
-        <el-menu-item index="GroupViewSetting" @click="goto('GroupViewSetting')">
+        </sidebar-item>
+        <sidebar-item
+          :index="`/groupview/${id}/setting`"
+          tooltip="团队管理"
+        >
           <i class="el-icon-setting"></i>
           <span slot="title">团队管理</span>
-        </el-menu-item>
-      </el-menu>
+        </sidebar-item>
+      </sidebar>
     </el-aside>
     <el-main>
       <router-view />
@@ -26,50 +35,22 @@
   </el-container>
 </template>
 <script>
+import sidebar from "@/components/Sidebar.vue";
+import sidebarItem from "@/components/SidebarItem.vue";
 export default {
   props: ["id"],
+  components: { sidebar: sidebar, "sidebar-item": sidebarItem },
   computed: {
     activeName() {
-      return this.$route.name;
-    }
+      return this.$route.path;
+    },
   },
-  watch: {
-    screenWidth(val) {
-      if (!this.timer) {
-        this.screenWidth = val;
-        this.timer = true;
-        let that = this;
-        setTimeout(function() {
-          if (that.screenWidth < 768) {
-            that.isCollapse = true;
-          } else {
-            that.isCollapse = false;
-          }
-          that.timer = false;
-        }, 600);
-      }
-    }
-  },
-  created: function() {
+  created: function () {
     this.getGroupInfo();
     this.getGroupMember();
     this.getMemberInfo();
   },
-  mounted() {
-    window.onresize = () => {
-      return (() => {
-        window.screenWidth = document.body.clientWidth;
-        this.screenWidth = window.screenWidth;
-      })();
-    };
-  },
   methods: {
-    goto(gotoName) {
-      this.$router.push({
-        name: gotoName,
-        params: { id: this.id }
-      });
-    },
     async getData() {
       try {
         this.$store.dispatch("group/groupSearch", this.id);
@@ -79,7 +60,7 @@ export default {
         this.$message({
           showClose: true,
           type: "error",
-          message: e
+          message: e,
         });
       }
     },
@@ -87,11 +68,11 @@ export default {
       this.$store
         .dispatch("group/groupSearch", this.id)
         .then(() => {})
-        .catch(msg => {
+        .catch((msg) => {
           this.$message({
             showClose: true,
             type: "error",
-            message: msg
+            message: msg,
           });
         });
     },
@@ -99,11 +80,11 @@ export default {
       this.$store
         .dispatch("group/getGroupMember", this.id)
         .then(() => {})
-        .catch(msg => {
+        .catch((msg) => {
           this.$message({
             showClose: true,
             type: "error",
-            message: msg
+            message: msg,
           });
         });
     },
@@ -111,23 +92,18 @@ export default {
       this.$store
         .dispatch("group/getGroupCharacter", this.id)
         .then(() => {})
-        .catch(msg => {
+        .catch((msg) => {
           this.$message({
             showClose: true,
             type: "error",
-            message: msg
+            message: msg,
           });
         });
-    }
+    },
   },
   data() {
-    let screenWidth = document.body.clientWidth;
-    let isCollapse = false;
-    return {
-      screenWidth,
-      isCollapse
-    };
-  }
+    return {};
+  },
 };
 </script>
 <style scoped>

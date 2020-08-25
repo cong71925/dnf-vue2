@@ -1,13 +1,6 @@
 <template>
-  <el-tooltip
-    class="item"
-    effect="dark"
-    :content="tooltip"
-    placement="right"
-    :disabled="tooltip==null"
-  >
-  <router-link :to="index">
-    <div class="sidebar-item" :class="{ 'is-active': isActive }">
+  <router-link :to="index" class="router-link">
+    <div class="navbar-item" :class="{ 'is-active': isActive }">
       <div class="icon">
         <slot></slot>
       </div>
@@ -15,15 +8,14 @@
         <slot name="title"></slot>
       </div>
     </div>
-    </router-link>
-  </el-tooltip>
+  </router-link>
 </template>
 <script>
 export default {
-  name: "sidebar-item",
+  name: "navbar-item",
   computed: {
     isActive() {
-      if (this.index === this.activeIndex && this.index != null) {
+      if (this.index === this.activeIndex && this.index != "") {
         return true;
       } else {
         return false;
@@ -35,21 +27,20 @@ export default {
       type: String,
       default: "",
     },
-    tooltip: String,
   },
   data() {
     return {
       activeIndex: "",
-      router: false
+      router: false,
     };
   },
 };
 </script>
 <style scoped>
-.sidebar-item {
+.navbar-item {
   display: flex;
-  height: 50px;
-  line-height: 50px;
+  height: 60px;
+  line-height: 60px;
   padding: 0 12px 0 12px;
   font-size: 14px;
   color: #303133;
@@ -61,18 +52,12 @@ export default {
   transition: border-color 0.3s, background-color 0.3s, color 0.3s;
 }
 .is-active {
-  color: #409eff;
+  border-bottom: 2px solid #409eff;
 }
 .title {
   margin-left: 5px;
 }
-.sidebar-item:hover {
-  background: rgba(255, 255, 255, 0.5);
-}
-
-@media (max-width: 768px) {
-  .title {
-    display: none;
-  }
+.navbar-item:hover {
+  background: rgba(255, 255, 255, 0.9);
 }
 </style>
