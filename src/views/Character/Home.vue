@@ -78,13 +78,11 @@ export default {
       this.getData(val);
     },
     getHistoricalData(character) {
-      // this.character = character;
       this.createPanel({
         title: `历史数据: ${character.character_name}`,
         type: "history",
         data: character
       })
-      // this.historicalVisible = true;
     },
     createPanel(
       payload = {

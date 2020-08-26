@@ -109,6 +109,7 @@ export default {
             message: "修改成功!",
           });
           this.$emit("update");
+          this.$emit("removeTab");
         })
         .catch((msg) => {
           this.$message({

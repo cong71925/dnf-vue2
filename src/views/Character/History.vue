@@ -3,8 +3,19 @@
     <el-row :gutter="20">
       <el-col :xs="24" :lg="fullScreen?24:12">
         <el-card>
-          <buffer-charts :data="historicalData" :character="character" :fullScreen.sync="fullScreen" height="500px" v-if="character.job === '奶'" />
-          <center-charts :data="historicalData" :fullScreen.sync="fullScreen" height="500px" v-else />
+          <buffer-charts
+            :data="historicalData"
+            :character="character"
+            :fullScreen.sync="fullScreen"
+            height="500px"
+            v-if="character.job === '奶'"
+          />
+          <center-charts
+            :data="historicalData"
+            :fullScreen.sync="fullScreen"
+            height="500px"
+            v-else
+          />
         </el-card>
       </el-col>
       <el-col :xs="24" :lg="fullScreen?24:12">
@@ -62,8 +73,6 @@ export default {
   created() {
     this.getData();
   },
-  computed: {
-  },
   methods: {
     getData() {
       this.$store
@@ -102,7 +111,7 @@ export default {
   data() {
     return {
       historicalData: [],
-      fullScreen: false
+      fullScreen: false,
     };
   },
 };

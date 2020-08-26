@@ -6,10 +6,10 @@
           <home @createPanel="createPanel" :page="page" ref="home" />
         </el-tab-pane>
         <el-tab-pane
-          :key="item.name"
+          :key="item.index"
           v-for="(item, index) in tabs"
           :label="item.title"
-          :name="String(index)"
+          :name="item.index"
           closable
         >
           <add v-if="item.type === 'add'" @removeTab="removeTab(String(index))" @update="update" />
@@ -37,7 +37,8 @@ export default {
       default: "1",
     },
   },
-  computed: {},
+  computed: {
+  },
   watch: {
     index: {
       handler(val) {
@@ -47,6 +48,7 @@ export default {
     },
   },
   mounted() {
+    console.log(this.$store.state.character);
     window.addEventListener("beforeunload", this.beforeunload);
   },
   destroyed() {
@@ -62,22 +64,19 @@ export default {
     removeTab(targetName) {
       let tabs = this.tabs;
       let activeName = this.index;
-      tabs.splice(targetName, 1);
-      this.history.forEach((element, index, arr) => {
-        if (targetName === element) {
-          arr.splice(index, 1);
-        }
-        if (Number(targetName) < Number(element)) {
-          arr[index] = String(Number(element) - 1);
-        }
+      tabs.forEach((element, index, arr) => {
+        if (element.index === targetName) return arr.splice(index, 1);
       });
-      if (targetName === activeName) {
-        this.index = this.history.pop();
-      }
+      this.history.forEach((element, index, arr) => {
+        if (targetName === element) return arr.splice(index, 1);
+      });
+      if (targetName === activeName) return (this.index = this.history.pop());
     },
     createPanel(payload) {
+      const newIndex = ++this.indexCounter + "";
+      payload.index = newIndex;
       this.tabs.push(payload);
-      this.index = String(this.tabs.length - 1);
+      this.index = newIndex;
     },
     update() {
       this.$refs.home.getData();
@@ -99,6 +98,7 @@ export default {
   data() {
     return {
       index: "-1",
+      indexCounter: 0,
       tabs: [],
       history: [],
     };
