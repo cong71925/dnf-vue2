@@ -34,12 +34,12 @@
       <div v-else>
         <el-form-item label="15s伤害" prop="damage_15s">
           <el-input size="mini" v-model.number="form.damage_15s" show-word-limit maxlength="5">
-            <template slot="append">e</template>
+            <template slot="append">亿</template>
           </el-input>
         </el-form-item>
         <el-form-item label="20s伤害" prop="damage_20s">
           <el-input size="mini" v-model.number="form.damage_20s" show-word-limit maxlength="5">
-            <template slot="append">e</template>
+            <template slot="append">亿</template>
           </el-input>
         </el-form-item>
       </div>
