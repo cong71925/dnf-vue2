@@ -87,7 +87,7 @@ export default {
   components: { CharacterTypeCharts, CharacterClassCharts },
   computed: {
     groupInfo() {
-      return this.$store.state.group.searchInfo;
+      return this.$store.state.group.groupInfo;
     },
     memberList() {
       return this.$store.state.group.memberList;
@@ -96,10 +96,26 @@ export default {
       return this.$store.state.group.characterList;
     },
     characterTypeNums() {
+      let centerNums = 0;
+      let supportNums = 0;
+      let bufferNums = 0;
+      this.characterList.forEach((value) => {
+        switch (value.job) {
+          case "纯C":
+            centerNums = centerNums + 1;
+            break;
+          case "辅C":
+            supportNums = supportNums + 1;
+            break;
+          case "奶":
+            bufferNums = bufferNums + 1;
+            break;
+        }
+      });
       return {
-        centerNums: this.$store.state.group.characterSort.centerList.length,
-        supportNums: this.$store.state.group.characterSort.supportList.length,
-        bufferNums: this.$store.state.group.characterSort.bufferList.length
+        centerNums: centerNums,
+        supportNums: supportNums,
+        bufferNums: bufferNums,
       };
     },
     characterJobFilters() {
@@ -140,19 +156,19 @@ export default {
         result.push({ text: index, value: index });
       });
       return result;
-    }
+    },
   },
   methods: {
     filterHandler(value, row, column) {
       const property = column["property"];
       return row[property] === value;
-    }
+    },
   },
   data() {
     return {
-      activeName: 2
+      activeName: 2,
     };
-  }
+  },
 };
 </script>
 <style scoped>

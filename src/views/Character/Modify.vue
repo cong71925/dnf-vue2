@@ -55,6 +55,14 @@
 export default {
   props: ["character"],
   computed: {},
+  watch: {
+    "form.job": {
+      handler(val, old) {
+        console.log(val, old);
+      },
+      immediate: true,
+    },
+  },
   methods: {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
@@ -126,7 +134,7 @@ export default {
     let form = {
       character_id: this.character.id,
       character_name: this.character.character_name,
-      job: this.character.job,
+      job: [this.character.job],
       class: [this.character.class_0, this.character.class_1],
       damage_15s: this.character.damage_15s,
       damage_20s: this.character.damage_20s,

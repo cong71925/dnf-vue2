@@ -5,7 +5,6 @@ import store from './store'
 import ElementUI from 'element-ui'
 import './style/element-variables.scss'
 import VCharts from 'v-charts'
-import 'vue-g2'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)

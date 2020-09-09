@@ -6,13 +6,15 @@
           <buffer-charts
             :data="historicalData"
             :character="character"
-            :fullScreen.sync="fullScreen"
+            :isFullScreen.sync="fullScreen"
+            :fullScreen="true"
             height="500px"
             v-if="character.job === '奶'"
           />
           <center-charts
             :data="historicalData"
-            :fullScreen.sync="fullScreen"
+            :isFullScreen.sync="fullScreen"
+            :fullScreen="true"
             height="500px"
             v-else
           />
@@ -65,8 +67,8 @@
   </div>
 </template>
 <script>
-import centerCharts from "./components/charts/Center.vue";
-import bufferCharts from "./components/charts/Buffer.vue";
+import centerCharts from "@/components/charts/history/Center.vue";
+import bufferCharts from "@/components/charts/history/Buffer.vue";
 export default {
   props: ["character"],
   components: { "center-charts": centerCharts, "buffer-charts": bufferCharts },

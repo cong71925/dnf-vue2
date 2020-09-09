@@ -1,11 +1,5 @@
 <template>
   <div class="container">
-    <characterHistoricalData
-      :dialogVisible.sync="historicalVisible"
-      :controlVisible="true"
-      :character="character"
-      @update="getData(page)"
-    />
     <div class="button-panel">
       <el-button icon="el-icon-plus" @click="createPanel()">添加角色</el-button>
       <div class="gutter"></div>
@@ -42,14 +36,13 @@
 </template>
 <script>
 import characterItem from "./components/CharacterItem.vue";
-import characterHistoricalData from "@/components/CharacterHistoricalData";
 export default {
   props: {
     page: {
       default: "1",
     },
   },
-  components: { "character-item": characterItem, characterHistoricalData },
+  components: { "character-item": characterItem },
   created() {
     this.getData();
   },
@@ -98,12 +91,9 @@ export default {
     const classSub = require("@/data/class.json").options;
     return {
       character: {},
-      addVisible: false,
-      historicalVisible: false,
       job,
       classSub,
-      characterList: {},
-      nums: 0,
+      characterList: [],
       boost: true,
       favoritism: true,
       count: 0,
@@ -127,9 +117,6 @@ export default {
 }
 .main-panel {
   flex: 1;
-}
-.el-card {
-  text-align: center;
 }
 .character_info {
   text-align: left;

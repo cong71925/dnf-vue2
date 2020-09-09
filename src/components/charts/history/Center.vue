@@ -14,7 +14,7 @@
 <script>
 import mixin from "./mixin.js";
 export default {
-  props: ["data", "height", "fullScreen"],
+  props: ["data", "height", "fullScreen", "isFullScreen"],
   mixins: [mixin],
   computed: {
     chartData() {
@@ -55,11 +55,11 @@ export default {
             },
           },
           myToolFullScreen: {
-            show: true,
-            title: this.fullScreen
+            show: this.fullScreen,
+            title: this.isFullScreen
               ? options.shrinkScreen.title
               : options.fullScreen.title,
-            icon: this.fullScreen
+            icon: this.isFullScreen
               ? options.shrinkScreen.icon
               : options.fullScreen.icon,
             onclick: () => {

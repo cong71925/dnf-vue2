@@ -1,38 +1,20 @@
 <template>
   <el-container>
     <el-main>
-      <el-button-group>
-        <el-button type="primary" icon="el-icon-plus" @click="dialogVisible = true">创建团队</el-button>
-        <el-button type="primary" icon="el-icon-search" @click="addVisible = !addVisible">查找团队</el-button>
-      </el-button-group>
+      <div class="button-group">
+        <router-link to="/group/create">
+          <el-button type="primary" icon="el-icon-plus">创建团队</el-button>
+        </router-link>
+        <router-link to="/group/search">
+          <el-button type="primary" icon="el-icon-search" @click="addVisible = !addVisible">查找团队</el-button>
+        </router-link>
+      </div>
       <el-divider></el-divider>
-      <el-collapse-transition>
-        <div v-show="addVisible">
-          <el-input placeholder="请输入要查找的团队ID" v-model.number="searchInput">
-            <el-tooltip
-              class="item"
-              effect="dark"
-              content="查找团队"
-              placement="top-start"
-              slot="append"
-            >
-              <el-button icon="el-icon-search" @click="groupSearch"></el-button>
-            </el-tooltip>
-          </el-input>
-          <el-divider></el-divider>
-        </div>
-      </el-collapse-transition>
       <el-row :gutter="20">
         <div v-for="item in group" :key="item.id">
           <group-item class="group-item" :group="item" />
         </div>
       </el-row>
-      <groupCreate :dialogVisible.sync="dialogVisible" @update="getData" />
-      <groupSearch
-        :dialogVisible.sync="searchVisible"
-        :searchInput="searchInput"
-        @update="getData"
-      />
     </el-main>
     <el-footer height="30px">
       <el-pagination
@@ -47,30 +29,28 @@
 </template>
 <script>
 import groupItem from "./components/GroupItem";
-import groupCreate from "./components/GroupCreate";
-import groupSearch from "./components/GroupSearch";
 export default {
   props: ["page"],
-  components: { "group-item": groupItem, groupCreate, groupSearch },
-  created: function(){
-    this.getData(this.page)
+  components: { "group-item": groupItem },
+  created: function () {
+    this.getData(this.page);
   },
   methods: {
     getData(page) {
       this.$store
         .dispatch("group/getGroupList", {
           page: page,
-          pageSize: this.pageSize
+          pageSize: this.pageSize,
         })
         .then(() => {
-          this.group = this.$store.state.group.groupList
-          this.count = this.$store.state.group.count
+          this.group = this.$store.state.group.groupList;
+          this.count = this.$store.state.group.count;
         })
-        .catch(msg => {
+        .catch((msg) => {
           this.$message({
             showClose: true,
             type: "error",
-            message: msg
+            message: msg,
           });
         });
     },
@@ -80,37 +60,37 @@ export default {
     },
     groupSearch() {
       this.$store
-        .dispatch("group/groupSearch", this.searchInput)
+        .dispatch("group/getGroupInfo", this.searchInput)
         .then(() => {
-          this.searchVisible = true
+          this.searchVisible = true;
         })
-        .catch(msg => {
+        .catch((msg) => {
           this.$message({
             showClose: true,
             type: "error",
-            message: msg
+            message: msg,
           });
         });
-    }
-    
+    },
   },
   data() {
     return {
-      dialogVisible: false,
-      searchVisible: false,
       count: 0,
       group: [],
-      searchInput: "",
-      addVisible: false,
-      pageSize: 12
-
+      pageSize: 12,
     };
-  }
+  },
 };
 </script>
 <style scoped>
 .card {
   text-align: center;
+}
+.button-group {
+  display: flex;
+}
+.button-group a{
+  margin: 0 5px 0 0;
 }
 .group-item {
   margin: 5px 0 5px 0;

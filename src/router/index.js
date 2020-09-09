@@ -63,11 +63,32 @@ const routes = [
     props: true
   },
   {
-    path: '/group/:page?',
+    path: '/group/',
     name: 'Group',
-    component: () => import('../views/Group/Home.vue'),
-    props: true,
-    meta: { requiresAuth: true }
+    component: () => import('../views/Group/Index.vue'),
+    meta: { requiresAuth: true },
+    children: [
+      {
+        path: 'create',
+        name: 'GroupCreate',
+        component: () => import('../views/Group/Create.vue'),
+        meta: { requiresAuth: true },
+      },
+      {
+        path: 'search/:keyword?/:page?',
+        name: 'GroupSearch',
+        component: () => import('../views/Group/Search.vue'),
+        props: true,
+        meta: { requiresAuth: true },
+      },
+      {
+        path: ':page?',
+        name: 'GroupHome',
+        component: () => import('../views/Group/Home.vue'),
+        props: true,
+        meta: { requiresAuth: true },
+      },
+    ],
   },
   {
     path: '/groupview/:id/',

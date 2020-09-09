@@ -107,6 +107,7 @@ const actions = {
         })
     },
     updateCharacter(context, payload) {
+        console.log(payload)
         return new Promise((resolve, reject) => {
             axios({
                 url: 'character/' + payload.character_id,

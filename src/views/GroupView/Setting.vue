@@ -87,7 +87,7 @@ export default {
   props: ["id"],
   computed: {
     groupInfo() {
-      return this.$store.state.group.searchInfo;
+      return this.$store.state.group.groupInfo;
     },
     memberList() {
       let temp = [];
@@ -123,7 +123,7 @@ export default {
           type: "success",
           message: "转移成功",
         });
-        this.$store.dispatch("group/groupSearch", this.id);
+        this.$store.dispatch("group/getGroupInfo", this.id);
       } catch (e) {
         this.$message({
           type: "info",
@@ -143,7 +143,7 @@ export default {
           message: "移除成功",
         });
         this.$store.dispatch("group/getGroupMember", this.id);
-        this.$store.dispatch("group/groupSearch", this.id);
+        this.$store.dispatch("group/getGroupInfo", this.id);
         this.$store.dispatch("group/getGroupCharacter", this.id);
       } catch (e) {
         this.$message({
@@ -160,7 +160,7 @@ export default {
           type: "success",
           message: "修改成功",
         });
-        this.$store.dispatch("group/groupSearch", this.id);
+        this.$store.dispatch("group/getGroupInfo", this.id);
       } catch (e) {
         this.$message({
           showClose: true,

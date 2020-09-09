@@ -7,15 +7,15 @@
         </el-tab-pane>
         <el-tab-pane
           :key="item.index"
-          v-for="(item, index) in tabs"
+          v-for="item in tabs"
           :label="item.title"
           :name="item.index"
           closable
         >
-          <add v-if="item.type === 'add'" @removeTab="removeTab(String(index))" @update="update" />
+          <add v-if="item.type === 'add'" @removeTab="removeTab(item.index)" @update="update" />
           <modify
             v-if="item.type === 'modify'"
-            @removeTab="removeTab(String(index))"
+            @removeTab="removeTab(item.index)"
             @update="update"
             :character="item.data"
           />
@@ -37,8 +37,7 @@ export default {
       default: "1",
     },
   },
-  computed: {
-  },
+  computed: {},
   watch: {
     index: {
       handler(val) {
@@ -108,6 +107,6 @@ export default {
 <style scoped>
 .el-main {
   padding-top: 0;
-  padding-bottom: 10px;
+  padding-bottom: 0;
 }
 </style>

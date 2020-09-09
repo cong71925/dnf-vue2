@@ -15,7 +15,7 @@
 import adapter from "@/utils/adapter.js";
 import mixin from "./mixin.js";
 export default {
-  props: ["data", "height", "fullScreen", "character"],
+  props: ["data", "height", "fullScreen", "character", "isFullScreen"],
   mixins: [mixin],
   computed: {
     newData() {
@@ -132,11 +132,11 @@ export default {
             },
           },
           myToolFullScreen: {
-            show: true,
-            title: this.fullScreen
+            show: this.fullScreen,
+            title: this.isFullScreen
               ? options.shrinkScreen.title
               : options.fullScreen.title,
-            icon: this.fullScreen
+            icon: this.isFullScreen
               ? options.shrinkScreen.icon
               : options.fullScreen.icon,
             onclick: () => {

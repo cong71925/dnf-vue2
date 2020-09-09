@@ -24,7 +24,7 @@ const mixin = {
     },
     methods: {
         resize() {
-            this.$emit("update:fullScreen", !this.fullScreen);
+            this.$emit("update:isFullScreen", !this.isFullScreen);
             this.$nextTick(() => {
                 this.$refs.charts.echarts.resize();
             });

@@ -39,7 +39,7 @@ import sidebar from "@/components/Sidebar.vue";
 import sidebarItem from "@/components/SidebarItem.vue";
 export default {
   props: ["id"],
-  components: { sidebar: sidebar, "sidebar-item": sidebarItem },
+  components: { "sidebar": sidebar, "sidebar-item": sidebarItem },
   computed: {
     activeName() {
       return this.$route.path;
@@ -51,22 +51,9 @@ export default {
     this.getMemberInfo();
   },
   methods: {
-    async getData() {
-      try {
-        this.$store.dispatch("group/groupSearch", this.id);
-        this.$store.dispatch("group/getGroupMember", this.id);
-        this.$store.dispatch("group/getGroupMember", this.id);
-      } catch (e) {
-        this.$message({
-          showClose: true,
-          type: "error",
-          message: e,
-        });
-      }
-    },
     getGroupInfo() {
       this.$store
-        .dispatch("group/groupSearch", this.id)
+        .dispatch("group/getGroupInfo", this.id)
         .then(() => {})
         .catch((msg) => {
           this.$message({

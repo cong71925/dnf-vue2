@@ -39,16 +39,20 @@
       </div>
     </div>
     <el-divider />
-    <el-button type="primary" icon="el-icon-s-marketing" @click="setHistoricalDataVisible" style="width:100%;">历史数据</el-button>
+    <el-button type="primary" icon="el-icon-s-marketing" @click="createPanel" style="width:100%;">历史数据</el-button>
   </el-card>
 </template>
 <script>
 export default {
   props: ['character'],
   methods: {
-    setHistoricalDataVisible() {
-      this.$emit('getHistoricalData',this.character)
-    }
+    createPanel() {
+      this.$emit("createPanel", {
+        title: "历史数据:" + this.character.character_name,
+        type: "history",
+        data: this.character,
+      });
+    },
   },
   data() {
     var url =

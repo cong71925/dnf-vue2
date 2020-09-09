@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-main id="index">
+    <el-main>
       <el-timeline>
         <el-timeline-item timestamp="2020/7/21" placement="top">
           <el-card>
@@ -39,3 +39,6 @@
     </el-main>
   </el-container>
 </template>
+<style scoped>
+
+</style>
