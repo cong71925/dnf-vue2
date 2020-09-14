@@ -1,6 +1,13 @@
 <template>
   <div>
-    <el-page-header @back="$router.push('/')" content="个人信息"></el-page-header>
+    <el-breadcrumb separator-class="el-icon-arrow-right">
+      <el-breadcrumb-item>
+        <router-link to="/">首页</router-link>
+      </el-breadcrumb-item>
+      <el-breadcrumb-item>
+        <router-link to="/account/home">个人信息</router-link>
+      </el-breadcrumb-item>
+    </el-breadcrumb>
     <p></p>
     <el-row :gutter="20">
       <el-col :xs="24" :lg="12">
@@ -39,7 +46,6 @@
           </div>
         </el-card>
       </el-col>
-
       <el-col :xs="24" :lg="12">
         <el-card>
           <character-type-charts :data="characterTypeNums" />
@@ -49,21 +55,22 @@
   </div>
 </template>
 <script>
-import characterTypeCharts from "@/components/charts/CharacterType.vue";
 export default {
-  components: { "character-type-charts": characterTypeCharts },
+  components: {
+    "character-type-charts": () => import("@/components/charts/distribution/CharacterType.vue"),
+  },
   computed: {
     userInfo() {
       return this.$store.state.account.userInfo;
     },
     characterTypeNums() {
       return this.$store.state.account.characterTypeNums;
-    }
+    },
   },
   methods: {},
   data() {
     return {};
-  }
+  },
 };
 </script>
 <style scoped>

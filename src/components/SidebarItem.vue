@@ -6,15 +6,15 @@
     placement="right"
     :disabled="tooltip==null"
   >
-  <router-link :to="index">
-    <div class="sidebar-item" :class="{ 'is-active': isActive }">
-      <div class="icon">
-        <slot></slot>
+    <router-link :to="path == '' ? index : path">
+      <div class="sidebar-item" :class="{ 'is-active': isActive }">
+        <div class="icon">
+          <slot></slot>
+        </div>
+        <div class="title">
+          <slot name="title"></slot>
+        </div>
       </div>
-      <div class="title">
-        <slot name="title"></slot>
-      </div>
-    </div>
     </router-link>
   </el-tooltip>
 </template>
@@ -35,12 +35,16 @@ export default {
       type: String,
       default: "",
     },
+    path: {
+      type: String,
+      default: "",
+    },
     tooltip: String,
   },
   data() {
     return {
       activeIndex: "",
-      router: false
+      router: false,
     };
   },
 };
@@ -63,16 +67,21 @@ export default {
 .is-active {
   color: #409eff;
 }
+.icon {
+  margin: 0 5px 0 5px;
+}
 .title {
-  margin-left: 5px;
+  margin-right: 5px;
 }
 .sidebar-item:hover {
   background: rgba(255, 255, 255, 0.5);
 }
-
 @media (max-width: 768px) {
   .title {
     display: none;
+  }
+  .icon {
+    margin: 0 0 0 0;
   }
 }
 </style>

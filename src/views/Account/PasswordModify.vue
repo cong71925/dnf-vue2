@@ -1,6 +1,16 @@
 <template>
   <div>
-    <el-page-header @back="$router.push('/')" content="修改密码"></el-page-header>
+    <el-breadcrumb separator-class="el-icon-arrow-right">
+      <el-breadcrumb-item>
+        <router-link to="/">首页</router-link>
+      </el-breadcrumb-item>
+      <el-breadcrumb-item>
+        <router-link to="/account/home">个人信息</router-link>
+      </el-breadcrumb-item>
+      <el-breadcrumb-item>
+        <router-link to="/account/passwordmodify">修改密码</router-link>
+      </el-breadcrumb-item>
+    </el-breadcrumb>
     <p></p>
     <el-card class="form">
       <el-form status-icon :model="form" :rules="rules" ref="form">

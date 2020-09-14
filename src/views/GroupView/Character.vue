@@ -1,6 +1,19 @@
 <template>
   <div>
-    <el-page-header @back="$router.push('/group')" content="角色总览"></el-page-header>
+    <el-breadcrumb separator-class="el-icon-arrow-right">
+      <el-breadcrumb-item>
+        <router-link to="/">首页</router-link>
+      </el-breadcrumb-item>
+      <el-breadcrumb-item>
+        <router-link to="/group">团队列表</router-link>
+      </el-breadcrumb-item>
+      <el-breadcrumb-item>
+        <router-link :to="`/groupview/${id}/home`">团队信息</router-link>
+      </el-breadcrumb-item>
+      <el-breadcrumb-item>
+        <router-link :to="`/groupview/${id}/character`">角色总览</router-link>
+      </el-breadcrumb-item>
+    </el-breadcrumb>
     <p></p>
     <div class="collapse">
       <el-collapse accordion>
@@ -114,16 +127,13 @@
 </template>
 <script>
 import adapter from "@/utils/adapter.js";
-import centerChart from "./components/charts/Center";
-import bufferChart from "./components/charts/Buffer";
-import bufferTable from "./components/table/Buffer";
-import centerTable from "./components/table/Center";
 export default {
+  props: ["id"],
   components: {
-    "center-chart": centerChart,
-    "buffer-chart": bufferChart,
-    "buffer-table": bufferTable,
-    "center-table": centerTable,
+    "center-chart": () => import("@/components/charts/characterList/Center"),
+    "buffer-chart": () => import("@/components/charts/characterList/Buffer"),
+    "buffer-table": () => import("@/components/table/characterList/Buffer"),
+    "center-table": () => import("@/components/table/characterList/Center"),
   },
   created() {},
   computed: {
@@ -173,6 +183,7 @@ export default {
           hasSystemBuff: false,
           boost: this.boost,
           favoritism: this.favoritism,
+          templateCharacter: this.$store.state.setting.setting.templateCharacter
         };
         value.LiftRatioDefault = adapter.GetLiftRatio(payload);
         payload.hasSystemBuff = true;

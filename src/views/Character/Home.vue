@@ -7,6 +7,8 @@
         <el-button :type="boost?'primary':''" @click="boost = !boost">唱歌</el-button>
         <el-button :type="favoritism?'primary':''" @click="favoritism =! favoritism">偏爱</el-button>
       </el-button-group>
+      <div class="gutter"></div>
+      <el-button @click="getList">角色信息列表</el-button>
     </div>
     <p></p>
     <div class="main-panel">
@@ -35,14 +37,13 @@
   </div>
 </template>
 <script>
-import characterItem from "./components/CharacterItem.vue";
 export default {
   props: {
     page: {
       default: "1",
     },
   },
-  components: { "character-item": characterItem },
+  components: { "character-item": () => import("./components/CharacterCard") },
   created() {
     this.getData();
   },
@@ -53,10 +54,10 @@ export default {
           page: page,
           pageSize: this.pageSize,
         })
-        .then(() => {
-          let character = this.$store.state.character;
-          this.count = character.count;
-          this.characterList = character.characterList;
+        .then((data) => {
+          const result = data;
+          this.count = result.count;
+          this.characterList = result.list;
         })
         .catch((msg) => {
           this.$message({
@@ -74,8 +75,14 @@ export default {
       this.createPanel({
         title: `历史数据: ${character.character_name}`,
         type: "history",
-        data: character
-      })
+        data: character,
+      });
+    },
+    getList(){
+      this.createPanel({
+        title: `角色信息列表`,
+        type: "list",
+      });
     },
     createPanel(
       payload = {

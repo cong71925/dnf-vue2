@@ -22,10 +22,10 @@
   </el-container>
 </template>
 <script>
-import sidebar from "@/components/Sidebar.vue";
-import sidebarItem from "@/components/SidebarItem.vue";
+import Sidebar from "@/components/Sidebar.vue";
+import SidebarItem from "@/components/SidebarItem.vue";
 export default {
-  components: { sidebar: sidebar, "sidebar-item": sidebarItem },
+  components: { Sidebar, SidebarItem },
   computed: {
     activeName() {
       return this.$route.path;
@@ -57,9 +57,3 @@ export default {
   },
 };
 </script>
-<style scoped>
-.el-menu {
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0);
-}
-</style>

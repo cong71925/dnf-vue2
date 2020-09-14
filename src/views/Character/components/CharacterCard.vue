@@ -58,6 +58,7 @@ export default {
         hasSystemBuff: false,
         boost: this.boost,
         favoritism: this.favoritism,
+        templateCharacter: this.$store.state.setting.setting.templateCharacter
       };
       data.liftRatioDefault = adapter.GetLiftRatio(payload);
       payload.hasSystemBuff = true;

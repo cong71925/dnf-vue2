@@ -4,6 +4,7 @@ import auth from './modules/auth'
 import account from './modules/account'
 import character from './modules/character'
 import group from './modules/group'
+import setting from './modules/setting'
 
 Vue.use(Vuex)
 
@@ -22,6 +23,7 @@ export default new Vuex.Store({
     auth: auth,
     account: account,
     character: character,
-    group: group
+    group: group,
+    setting: setting
   }
 })

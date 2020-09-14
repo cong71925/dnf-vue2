@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="index" class="router-link">
+  <router-link :to="path == '' ? index : path" class="router-link">
     <div class="navbar-item" :class="{ 'is-active': isActive }">
       <div class="icon">
         <slot></slot>
@@ -24,6 +24,10 @@ export default {
   },
   props: {
     index: {
+      type: String,
+      default: "",
+    },
+    path: {
       type: String,
       default: "",
     },

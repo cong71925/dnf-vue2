@@ -1,7 +1,6 @@
 import axios from 'axios'
 import store from '../store'
 axios.defaults.baseURL = './api/'
-// axios.defaults.baseURL = 'https://api.congvps.xyz/'
 axios.defaults.headers['Content-Type'] = 'application/json; charset=UTF-8'
 axios.defaults.withCredentials = true
 

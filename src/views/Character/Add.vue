@@ -28,24 +28,20 @@
           </div>
         </el-form-item>
         <div v-if="form.job=='奶'">
-          <div style="color:red; font-weight:bold;">
-            <p>奶登记是buff的数值：</p>
-            <p>
-              <el-image
-                :src="imgSrc[0]"
-                :preview-src-list="imgSrc"
-                :fit="'scale-down'"
-                style="height: 160px;width: 300px"
-              ></el-image>
-              <el-image
-                :src="imgSrc[1]"
-                :preview-src-list="imgSrc"
-                :fit="'scale-down'"
-                style="height: 160px;width: 300px"
-              ></el-image>
-            </p>
-            <p>奶妈和奶萝都是登记buff的数值就行了，不需要算上唱歌和偏爱，本项目在计算提升率时会自动计算。奶爸请登记叠满二觉后的buff和太阳，有条件的可以测有魔王契约假紫光环之类的buff。奶测buff可以找朋友进修炼场或者帝国竞技场，这里不再赘述。</p>
-          </div>
+          <el-alert title="奶系职业登记说明" type="info">
+            <div>
+              <p>奶登记是buff的数值：</p>
+              <p>
+                <img
+                  src="@/assets/buffer/buffDefault.jpg"
+                  style="height: 160px;width: atuo;"
+                  alt="fit"
+                />
+                <img src="@/assets/buffer/buffBurst.jpg" style="height: 160px;width: atuo;" alt="fit" />
+              </p>
+              <p>奶妈和奶萝都是登记buff的数值就行了，不需要算上唱歌和偏爱，本项目在计算提升率时会自动计算。奶爸请登记叠满二觉后的buff和太阳，有条件的可以测有魔王契约假紫光环之类的buff。奶测buff可以找朋友进修炼场或者帝国竞技场，这里不再赘述。</p>
+            </div>
+          </el-alert>
 
           <el-form-item label="常驻力智:" prop="buff_default">
             <el-input size="mini" v-model.number="form.buff_default" show-word-limit maxlength="5"></el-input>
@@ -76,6 +72,7 @@
         </el-form-item>
       </el-form>
     </el-card>
+    <p></p>
   </div>
 </template>
 <script>
@@ -93,7 +90,7 @@ export default {
                 message: "添加成功!",
               });
               this.$emit("update");
-              this.$emit("removeTab")
+              this.$emit("removeTab");
             })
             .catch((msg) => {
               this.$message({
@@ -153,10 +150,6 @@ export default {
       rules,
       job: require("@/data/job.json").options,
       classSub: require("@/data/class.json").options,
-      imgSrc: [
-        "/static/image/index/buffDefault.jpg",
-        "/static/image/index/buffBurst.jpg",
-      ],
     };
   },
 };

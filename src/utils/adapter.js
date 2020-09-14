@@ -1,5 +1,5 @@
 function BufferDataAdapter(payload, class_1 = payload.bufferData.class_1) {
-  let result = JSON.parse(JSON.stringify(payload.bufferData))
+  let result = { ...payload.bufferData }
   let boost = 1
   let favoritism = 1
   switch (class_1) {
@@ -30,21 +30,20 @@ function GetLiftRatio(payload, class_1 = payload.bufferData.class_1) {
   const buffStrInt = Number(payload.bufferData.buff_default)
   const buffAtk = Number(payload.bufferData.buff_atk)
   const buffBurst = Number(payload.bufferData.buff_burst)
-  let systemBuff = 10000
 
-  // 模板C的三攻力智
-  const templateCharacter = {
-    atk: 2600,
-    strInt: 4600
-  }
+  const templateCharacter = payload.templateCharacter
+  let systemBuff = templateCharacter.systemBuff
+
   let buffer = {
     boost: 1,
     favoritism: 1,
     aura: 0
   }
+
   if (!payload.hasSystemBuff) {
     systemBuff = 0
-  }
+  } 
+
   switch (class_1) {
     case '炽天使':
       buffer.boost = 1.3

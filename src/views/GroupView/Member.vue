@@ -1,6 +1,19 @@
 <template>
   <div>
-    <el-page-header @back="$router.push('/group')" content="成员详情"></el-page-header>
+    <el-breadcrumb separator-class="el-icon-arrow-right">
+      <el-breadcrumb-item>
+        <router-link to="/">首页</router-link>
+      </el-breadcrumb-item>
+      <el-breadcrumb-item>
+        <router-link to="/group">团队列表</router-link>
+      </el-breadcrumb-item>
+      <el-breadcrumb-item>
+        <router-link :to="`/groupview/${id}/home`">团队信息</router-link>
+      </el-breadcrumb-item>
+      <el-breadcrumb-item>
+        <router-link :to="`/groupview/${id}/member`">成员信息</router-link>
+      </el-breadcrumb-item>
+    </el-breadcrumb>
     <p></p>
     <el-tabs class="el-tabs" type="card" v-model="index" @tab-remove="removeTab">
       <el-tab-pane class="el-tab-pane" label="主页" name="-1">
@@ -37,10 +50,12 @@
   </div>
 </template>
 <script>
-import history from "./History.vue";
-import memberCollapseItem from "./components/MemberCollapseItem";
 export default {
-  components: { history, "member-collapse-item": memberCollapseItem },
+  props: ["id"],
+  components: {
+    history: () => import("./History"),
+    "member-collapse-item": () => import("./components/MemberCollapseItem"),
+  },
   watch: {
     index: {
       handler(val) {
@@ -59,7 +74,25 @@ export default {
   },
   computed: {
     memberSort() {
-      return this.$store.state.group.memberSort;
+      const payload = this.$store.state.group.characterList;
+      let map = new Map();
+      let member = [];
+      for (let i in payload) {
+        member = [];
+        if (map.has(payload[i].user_id)) {
+          member = map.get(payload[i].user_id);
+          member.push(payload[i]);
+          map.set(payload[i].user_id, member);
+        } else {
+          member.push(payload[i]);
+          map.set(payload[i].user_id, member);
+        }
+      }
+      let result = [];
+      map.forEach(function (value) {
+        result.push(value);
+      });
+      return result;
     },
   },
   methods: {

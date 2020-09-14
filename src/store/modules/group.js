@@ -1,11 +1,9 @@
 import axios from "../../axios"
 const state = {
     groupList: [],
-    historicalList: [],
     groupInfo: {},
     memberList: [],
     characterList: [],
-    memberSort: [],
     count: 0
 }
 const mutations = {
@@ -24,26 +22,6 @@ const mutations = {
     },
     setCharacterList(state, payload) {
         state.characterList = payload
-    },
-    setMemberSort(state, payload) {
-        let map = new Map()
-        let member = []
-        for (let i in payload) {
-            member = []
-            if (map.has(payload[i].user_id)) {
-                member = map.get(payload[i].user_id)
-                member.push(payload[i])
-                map.set(payload[i].user_id, member)
-            } else {
-                member.push(payload[i])
-                map.set(payload[i].user_id, member)
-            }
-        }
-        let result = []
-        map.forEach(function (value) {
-            result.push(value)
-        })
-        state.memberSort = result
     },
 }
 const actions = {
@@ -79,25 +57,6 @@ const actions = {
                 .then(response => {
                     if (response.data.code === 0) {
                         resolve(response.data.data)
-                    } else {
-                        reject(response.data.msg)
-                    }
-                })
-                .catch(() => {
-                    reject("网络连接错误或服务器无响应！")
-                })
-        })
-    },
-    getCharacterHistorical(context, payload) {
-        return new Promise((resolve, reject) => {
-            axios({
-                url: 'character/' + payload,
-                method: 'get'
-            })
-                .then(response => {
-                    if (response.data.code === 0) {
-                        context.commit('setHistoricalList', response.data.data)
-                        resolve()
                     } else {
                         reject(response.data.msg)
                     }
@@ -219,7 +178,6 @@ const actions = {
                 .then(response => {
                     if (response.data.code === 0) {
                         context.commit('setCharacterList', response.data.data)
-                        context.commit('setMemberSort', response.data.data)
                         resolve()
                     } else {
                         reject(response.data.msg)

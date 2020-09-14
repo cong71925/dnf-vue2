@@ -5,8 +5,10 @@
   </div>
 </template>
 <script>
+import VePie from "v-charts/lib/pie.common";
 export default {
   props: ["data"],
+  components: { "ve-pie": VePie },
   computed: {
     chartData() {
       return {
@@ -14,10 +16,10 @@ export default {
         rows: [
           { 角色类型: "纯C", 角色数: this.data.centerNums },
           { 角色类型: "辅C", 角色数: this.data.supportNums },
-          { 角色类型: "奶", 角色数: this.data.bufferNums }
-        ]
+          { 角色类型: "奶", 角色数: this.data.bufferNums },
+        ],
       };
-    }
+    },
   },
   data() {
     return {
@@ -26,12 +28,12 @@ export default {
           label: {
             show: true,
             position: "outside",
-            formatter: "{b}: {c} ({d}%)"
-          }
-        }
-      }
+            formatter: "{b}: {c} ({d}%)",
+          },
+        },
+      },
     };
-  }
+  },
 };
 </script>
 <style scoped>

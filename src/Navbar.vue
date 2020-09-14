@@ -14,9 +14,9 @@
           <i class="el-icon-c-scale-to-original"></i>
           <span slot="title">我的角色</span>
         </navbar-item>
-        <navbar-item index="/log">
+        <navbar-item index="/document" path="/document/home">
           <i class="el-icon-document"></i>
-          <span slot="title">更新日志</span>
+          <span slot="title">文档</span>
         </navbar-item>
       </div>
     </div>
@@ -34,6 +34,9 @@
       <el-dropdown-menu slot="dropdown">
         <router-link to="/account/home">
           <el-dropdown-item>个人中心</el-dropdown-item>
+        </router-link>
+        <router-link to="/setting/home">
+          <el-dropdown-item>系统设置</el-dropdown-item>
         </router-link>
         <el-dropdown-item @click.native="logout()">注销</el-dropdown-item>
       </el-dropdown-menu>

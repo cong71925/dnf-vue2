@@ -1,0 +1,9 @@
+{
+    "setting": {
+        "templateCharacter": {
+            "atk": 2600,
+            "strInt": 4600,
+            "systemBuff": 10000
+        }
+    }
+}

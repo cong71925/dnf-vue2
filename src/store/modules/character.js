@@ -1,18 +1,6 @@
 import axios from "../../axios"
-const state = {
-    characterList: [],
-    historicalList: [],
-    count: 0
-}
-const mutations = {
-    setCharacterList(state, payload) {
-        state.characterList = payload.list
-        state.count = payload.count
-    },
-    setHistoricalList(state, payload) {
-        state.historicalList = payload
-    }
-}
+const state = {}
+const mutations = {}
 const actions = {
     getCharacterList(context, payload) {
         return new Promise((resolve, reject) => {
@@ -26,9 +14,7 @@ const actions = {
             })
                 .then(response => {
                     if (response.data.code === 0) {
-                        console.log(response.data)
-                        context.commit('setCharacterList', response.data.data)
-                        resolve()
+                        resolve(response.data.data)
                     } else {
                         reject(response.data.msg)
                     }
@@ -46,8 +32,6 @@ const actions = {
             })
                 .then(response => {
                     if (response.data.code === 0) {
-                        console.log(response.data)
-                        context.commit('setHistoricalList', response.data.data)
                         resolve(response.data.data)
                     } else {
                         reject(response.data.msg)
@@ -143,7 +127,6 @@ const actions = {
                 method: 'delete'
             })
                 .then(response => {
-                    console.log(response.data)
                     if (response.data.code === 0) {
                         resolve()
                     } else {
@@ -157,14 +140,6 @@ const actions = {
     },
 
 }
-const getters = {
-    characterMap: state => {
-        let result = new Map()
-        state.characterList.forEach(element => {
-            result.set(element.id, element)
-        });
-        return result
-    },
-}
+const getters = {}
 
 export default { state, mutations, actions, getters, namespaced: true }

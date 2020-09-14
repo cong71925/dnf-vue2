@@ -141,11 +141,10 @@ export default {
         { max: 20, message: '长度在 0 到 20 个字符', trigger: 'blur' }
       ]
     }
-    const server = require('@/data/server.json').options
     return {
       form,
       rules,
-      server
+      server: require('@/data/server.json').options
     }
   }
 }

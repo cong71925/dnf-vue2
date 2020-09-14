@@ -1,7 +1,7 @@
 <template>
   <el-card class="box-card" shadow="hover">
     <div slot="header" class="clearfix">
-      <el-image style="width: 40px; height: 40px" :src="url" :fit="'fit'"></el-image>
+      <el-image style="width: 40px; height: 40px" :src="imgUrl" :fit="'fit'"></el-image>
       <span>{{ character.character_name }}</span>
     </div>
     <div>
@@ -39,12 +39,24 @@
       </div>
     </div>
     <el-divider />
-    <el-button type="primary" icon="el-icon-s-marketing" @click="createPanel" style="width:100%;">历史数据</el-button>
+    <el-button
+      type="primary"
+      icon="el-icon-s-marketing"
+      @click="createPanel"
+      style="width:100%;"
+    >历史数据</el-button>
   </el-card>
 </template>
 <script>
 export default {
-  props: ['character'],
+  props: ["character"],
+  computed: {
+    imgUrl() {
+      const class_0 = this.character.class_0;
+      const class_1 = this.character.class_1;
+      return `static/image/face/${class_0}/${class_1}.png`;
+    },
+  },
   methods: {
     createPanel() {
       this.$emit("createPanel", {
@@ -55,17 +67,9 @@ export default {
     },
   },
   data() {
-    var url =
-      'static/image/face/' +
-      this.character.class_0 +
-      '/' +
-      this.character.class_1 +
-      '.png'
-    return {
-      url
-    }
-  }
-}
+    return {};
+  },
+};
 </script>
 <style scoped>
 .el-card__header {

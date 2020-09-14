@@ -1,6 +1,23 @@
 <template>
   <div>
-    <el-page-header @back="$router.push('/')" content="信息修改"></el-page-header>
+    <el-breadcrumb separator-class="el-icon-arrow-right">
+      <el-breadcrumb-item>
+        <router-link to="/">首页</router-link>
+      </el-breadcrumb-item>
+      <el-breadcrumb-item>
+        <router-link to="/account/home">个人信息</router-link>
+      </el-breadcrumb-item>
+      <el-breadcrumb-item>
+        <router-link to="/account/infomodify">信息修改</router-link>
+      </el-breadcrumb-item>
+    </el-breadcrumb>
+    <p></p>
+    <el-alert
+      title="用户信息修改说明"
+      type="info"
+      description="用户名一栏请谨慎修改，并保存好修改后的用户名，该栏影响的是账号登录时使用的用户名，谨防丢失。"
+      show-icon
+    ></el-alert>
     <p></p>
     <el-card class="form">
     <el-form :model="form" status-icon :rules="rules" ref="form">

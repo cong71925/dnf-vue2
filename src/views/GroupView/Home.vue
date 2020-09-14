@@ -1,6 +1,16 @@
 <template>
   <div class="container">
-    <el-page-header @back="$router.push('/group')" content="团队详情"></el-page-header>
+    <el-breadcrumb separator-class="el-icon-arrow-right">
+      <el-breadcrumb-item>
+        <router-link to="/">首页</router-link>
+      </el-breadcrumb-item>
+      <el-breadcrumb-item>
+        <router-link to="/group">团队列表</router-link>
+      </el-breadcrumb-item>
+      <el-breadcrumb-item>
+        <router-link :to="`/groupview/${id}/home`">团队信息</router-link>
+      </el-breadcrumb-item>
+    </el-breadcrumb>
     <p></p>
     <el-row :gutter="20">
       <el-col :xs="24" :lg="12">
@@ -21,12 +31,12 @@
           </div>
         </el-card>
         <el-card class="box-card">
-          <CharacterTypeCharts :data="characterTypeNums" />
+          <character-type-charts :data="characterTypeNums" />
         </el-card>
       </el-col>
       <el-col :xs="24" :lg="12">
         <el-card class="box-card">
-          <CharacterClassCharts :data="characterList" height="600px" />
+          <character-class-charts :data="characterList" height="600px" />
         </el-card>
       </el-col>
     </el-row>
@@ -80,11 +90,12 @@
   </div>
 </template>
 <script>
-import CharacterTypeCharts from "@/components/charts/CharacterType.vue";
-import CharacterClassCharts from "@/components/charts/CharacterClass.vue";
 export default {
   props: ["id"],
-  components: { CharacterTypeCharts, CharacterClassCharts },
+  components: {
+    "character-type-charts": () => import("@/components/charts/distribution/CharacterType.vue"),
+    "character-class-charts": () => import("@/components/charts/distribution/CharacterClass.vue"),
+  },
   computed: {
     groupInfo() {
       return this.$store.state.group.groupInfo;

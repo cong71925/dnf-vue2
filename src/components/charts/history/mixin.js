@@ -1,5 +1,9 @@
 import format from "@/utils/format.js";
+import "v-charts/lib/index.common";
 const mixin = {
+    components: {
+        "ve-chart": () => import("v-charts/lib/chart.common"),
+    },
     computed: {
         toolbox() {
             const options = this.myToolOptions;

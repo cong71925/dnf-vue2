@@ -26,6 +26,7 @@ export default {
           hasSystemBuff: false,
           boost: this.boost,
           favoritism: this.favoritism,
+          templateCharacter: this.$store.state.setting.setting.templateCharacter
         };
         value.LiftRatioDefault = adapter.GetLiftRatio(
           payload,

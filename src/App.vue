@@ -14,6 +14,7 @@ export default {
   components: { navbar: navbar },
   created() {
     this.$store.dispatch("auth/getToken");
+    this.$store.dispatch("setting/loadSetting");
   },
   methods: {},
   name: "App",
@@ -51,6 +52,6 @@ body::before {
   z-index: -1;
   -webkit-filter: blur(2px);
   filter: blur(2px);
-  background: url("../public/static/image/index.jpg") no-repeat;
+  background: url("./assets/index.jpg") no-repeat;
 }
 </style>

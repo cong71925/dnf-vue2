@@ -28,11 +28,12 @@
   </el-container>
 </template>
 <script>
-import searchCard from "./components/SearchCard";
-import notFount from "@/components/NotFount";
 export default {
   props: { keyword: {}, page: { default: "1" } },
-  components: { "search-card": searchCard, "not-fount": notFount },
+  components: {
+    "search-card": () => import("./components/SearchCard"),
+    "not-fount": () => import("@/components/NotFount"),
+  },
   created() {
     if (this.keyword !== undefined) this.getData(this.keyword);
   },
@@ -41,7 +42,7 @@ export default {
       if (this.searchInput !== undefined) {
         if (this.searchInput === "") {
           this.$router.push("/group/search");
-          this.resultList = []
+          this.resultList = [];
         } else {
           this.$router.push(`/group/search/${this.searchInput}/${this.page}`);
           this.getData(this.searchInput);

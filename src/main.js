@@ -4,11 +4,9 @@ import router from './router'
 import store from './store'
 import ElementUI from 'element-ui'
 import './style/element-variables.scss'
-import VCharts from 'v-charts'
 
-Vue.config.productionTip = false
+Vue.config.productionTip = true
 Vue.use(ElementUI)
-Vue.use(VCharts)
 
 new Vue({
   router,

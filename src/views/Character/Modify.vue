@@ -1,55 +1,73 @@
 <template>
-  <el-card class="form">
-    <el-form :model="form" ref="form" :rules="rules">
-      <el-form-item label="角色名:" prop="character_name">
-        <el-input size="mini" v-model="form.character_name"></el-input>
-      </el-form-item>
-      <el-form-item label="职责" prop="job">
-        <el-cascader
-          v-model="form.job"
-          :options="job"
-          size="mini"
-          :props="{ expandTrigger: 'hover' }"
-        ></el-cascader>
-      </el-form-item>
-      <el-form-item label="职业" prop="class">
-        <el-cascader
-          v-model="form.class"
-          :options="classSub"
-          size="mini"
-          :props="{ expandTrigger: 'hover' }"
-        ></el-cascader>
-      </el-form-item>
-      <div v-if="form.job=='奶'">
-        <el-form-item label="常驻力智" prop="buff_default">
-          <el-input size="mini" v-model.number="form.buff_default" show-word-limit maxlength="5"></el-input>
+  <div>
+    <el-card class="form">
+      <el-form :model="form" ref="form" :rules="rules">
+        <el-form-item label="角色名:" prop="character_name">
+          <el-input size="mini" v-model="form.character_name"></el-input>
         </el-form-item>
-        <el-form-item label="常驻三攻" prop="buff_atk">
-          <el-input size="mini" v-model.number="form.buff_atk" show-word-limit maxlength="5"></el-input>
+        <el-form-item label="职责" prop="job">
+          <el-cascader
+            v-model="form.job"
+            :options="job"
+            size="mini"
+            :props="{ expandTrigger: 'hover' }"
+          ></el-cascader>
         </el-form-item>
-        <el-form-item label="太阳" prop="buff_burst">
-          <el-input size="mini" v-model.number="form.buff_burst" show-word-limit maxlength="5"></el-input>
+        <el-form-item label="职业" prop="class">
+          <el-cascader
+            v-model="form.class"
+            :options="classSub"
+            size="mini"
+            :props="{ expandTrigger: 'hover' }"
+          ></el-cascader>
         </el-form-item>
-      </div>
-      <div v-else>
-        <el-form-item label="15s伤害" prop="damage_15s">
-          <el-input size="mini" v-model.number="form.damage_15s" show-word-limit maxlength="5">
-            <template slot="append">亿</template>
-          </el-input>
+        <div v-if="form.job=='奶'">
+          <el-alert title="奶系职业登记说明" type="info">
+            <div>
+              <p>奶登记是buff的数值：</p>
+              <p>
+                <img
+                  src="@/assets/buffer/buffDefault.jpg"
+                  style="height: 160px;width: atuo;"
+                  alt="fit"
+                />
+                <img src="@/assets/buffer/buffBurst.jpg" style="height: 160px;width: atuo;" alt="fit" />
+              </p>
+              <p>奶妈和奶萝都是登记buff的数值就行了，不需要算上唱歌和偏爱，本项目在计算提升率时会自动计算。奶爸请登记叠满二觉后的buff和太阳，有条件的可以测有魔王契约假紫光环之类的buff。奶测buff可以找朋友进修炼场或者帝国竞技场，这里不再赘述。</p>
+            </div>
+          </el-alert>
+
+          <el-form-item label="常驻力智" prop="buff_default">
+            <el-input size="mini" v-model.number="form.buff_default" show-word-limit maxlength="5"></el-input>
+          </el-form-item>
+          <el-form-item label="常驻三攻" prop="buff_atk">
+            <el-input size="mini" v-model.number="form.buff_atk" show-word-limit maxlength="5"></el-input>
+          </el-form-item>
+          <el-form-item label="太阳" prop="buff_burst">
+            <el-input size="mini" v-model.number="form.buff_burst" show-word-limit maxlength="5"></el-input>
+          </el-form-item>
+        </div>
+        <div v-else>
+          <el-form-item label="15s伤害" prop="damage_15s">
+            <el-input size="mini" v-model.number="form.damage_15s" show-word-limit maxlength="5">
+              <template slot="append">亿</template>
+            </el-input>
+          </el-form-item>
+          <el-form-item label="20s伤害" prop="damage_20s">
+            <el-input size="mini" v-model.number="form.damage_20s" show-word-limit maxlength="5">
+              <template slot="append">亿</template>
+            </el-input>
+          </el-form-item>
+        </div>
+        <el-divider></el-divider>
+        <el-form-item>
+          <el-button type="primary" @click="modifyCharacter">提交修改</el-button>
+          <el-button type="danger" @click="removeCharacter">删除角色</el-button>
         </el-form-item>
-        <el-form-item label="20s伤害" prop="damage_20s">
-          <el-input size="mini" v-model.number="form.damage_20s" show-word-limit maxlength="5">
-            <template slot="append">亿</template>
-          </el-input>
-        </el-form-item>
-      </div>
-      <el-divider></el-divider>
-      <el-form-item>
-        <el-button type="primary" @click="modifyCharacter">提交修改</el-button>
-        <el-button type="danger" @click="removeCharacter">删除角色</el-button>
-      </el-form-item>
-    </el-form>
-  </el-card>
+      </el-form>
+    </el-card>
+    <p></p>
+  </div>
 </template>
 <script>
 export default {

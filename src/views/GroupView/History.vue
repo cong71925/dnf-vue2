@@ -13,11 +13,12 @@
   </div>
 </template>
 <script>
-import centerCharts from "@/components/charts/history/Center.vue";
-import bufferCharts from "@/components/charts/history/Buffer.vue";
 export default {
   props: ["character"],
-  components: { "center-charts": centerCharts, "buffer-charts": bufferCharts },
+  components: {
+    "center-charts": () => import("@/components/charts/history/Center.vue"),
+    "buffer-charts": () => import("@/components/charts/history/Buffer.vue"),
+  },
   created() {
     this.getData();
   },
@@ -26,7 +27,7 @@ export default {
       this.$store
         .dispatch("character/getCharacterHistorical", this.character.id)
         .then((result) => {
-          this.historicalData = JSON.parse(JSON.stringify(result));
+          this.historicalData = [...result];
         })
         .catch((msg) => {
           this.$message({

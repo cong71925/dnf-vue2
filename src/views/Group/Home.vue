@@ -6,13 +6,13 @@
           <el-button type="primary" icon="el-icon-plus">创建团队</el-button>
         </router-link>
         <router-link to="/group/search">
-          <el-button type="primary" icon="el-icon-search" @click="addVisible = !addVisible">查找团队</el-button>
+          <el-button type="primary" icon="el-icon-search">查找团队</el-button>
         </router-link>
       </div>
       <el-divider></el-divider>
       <el-row :gutter="20">
         <div v-for="item in group" :key="item.id">
-          <group-item class="group-item" :group="item" />
+          <group-card class="group-card" :group="item" />
         </div>
       </el-row>
     </el-main>
@@ -28,10 +28,9 @@
   </el-container>
 </template>
 <script>
-import groupItem from "./components/GroupItem";
 export default {
   props: ["page"],
-  components: { "group-item": groupItem },
+  components: { "group-card": () => import("./components/GroupCard") },
   created: function () {
     this.getData(this.page);
   },
@@ -89,10 +88,10 @@ export default {
 .button-group {
   display: flex;
 }
-.button-group a{
+.button-group a {
   margin: 0 5px 0 0;
 }
-.group-item {
+.group-card {
   margin: 5px 0 5px 0;
 }
 </style>

@@ -20,18 +20,21 @@
             :character="item.data"
           />
           <history v-if="item.type === 'history'" :character="item.data" />
+          <list v-if="item.type === 'list'" />
         </el-tab-pane>
       </el-tabs>
     </el-main>
   </el-container>
 </template>
 <script>
-import add from "./Add.vue";
-import home from "./Home.vue";
-import modify from "./Modify.vue";
-import history from "./History.vue";
 export default {
-  components: { add, home, modify, history },
+  components: {
+    add: () => import("./Add"),
+    home: () => import("./Home"),
+    modify: () => import("./Modify"),
+    history: () => import("./History"),
+    list: () => import("./List"),
+  },
   props: {
     page: {
       default: "1",
@@ -47,7 +50,6 @@ export default {
     },
   },
   mounted() {
-    console.log(this.$store.state.character);
     window.addEventListener("beforeunload", this.beforeunload);
   },
   destroyed() {

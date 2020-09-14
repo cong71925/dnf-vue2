@@ -1,6 +1,19 @@
 <template>
   <div>
-    <el-page-header @back="$router.push('/group')" content="团队管理"></el-page-header>
+    <el-breadcrumb separator-class="el-icon-arrow-right">
+      <el-breadcrumb-item>
+        <router-link to="/">首页</router-link>
+      </el-breadcrumb-item>
+      <el-breadcrumb-item>
+        <router-link to="/group">团队列表</router-link>
+      </el-breadcrumb-item>
+      <el-breadcrumb-item>
+        <router-link :to="`/groupview/${id}/home`">团队信息</router-link>
+      </el-breadcrumb-item>
+      <el-breadcrumb-item>
+        <router-link :to="`/groupview/${id}/setting`">团队管理</router-link>
+      </el-breadcrumb-item>
+    </el-breadcrumb>
     <p></p>
     <div class="collapse" v-if="$store.state.auth.userID == groupInfo.admin_id">
       <el-collapse v-model="activeName" accordion>

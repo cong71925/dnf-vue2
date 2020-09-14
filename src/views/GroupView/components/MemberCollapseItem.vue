@@ -8,7 +8,11 @@
         size="mini"
       >卡片</el-button>
       <el-button :type="showType === 'table'?'primary':''" @click="showType='table'" size="mini">表格</el-button>
-      <el-button :type="showType === 'charts'?'primary':''" @click="showType='charts'" size="mini">图表</el-button>
+      <el-button
+        :type="showType === 'charts'?'primary':''"
+        @click="showType='charts'"
+        size="mini"
+      >图表</el-button>
     </el-button-group>
     <el-button-group class="button-group" v-if="showType ==='table'||showType ==='charts'">
       <el-button
@@ -32,36 +36,22 @@
         size="mini"
       >奶</el-button>
     </el-button-group>
+    <el-button-group class="button-group" v-if="chartsType == 'buffer'">
+      <el-button size="mini" :type="boost?'primary':''" @click="boost = !boost">唱歌</el-button>
+      <el-button size="mini" :type="favoritism?'primary':''" @click="favoritism =! favoritism">偏爱</el-button>
+    </el-button-group>
     <p></p>
     <carousel v-if="showType == 'carousel'" :memberInfo="characterList" @createPanel="createPanel" />
     <div v-if="showType == 'table'">
       <div v-if="chartsType == 'buffer'">
-        <el-button-group class="button-group">
-          <el-button size="mini" :type="boost?'primary':''" @click="boost = !boost">唱歌</el-button>
-          <el-button
-            size="mini"
-            :type="favoritism?'primary':''"
-            @click="favoritism =! favoritism"
-          >偏爱</el-button>
-        </el-button-group>
         <buffer-table :data="bufferList" />
       </div>
       <div v-else>
         <center-table :data="centerList" />
       </div>
-      
     </div>
-    
     <div v-if="showType == 'charts'">
       <div v-if="chartsType == 'buffer'">
-        <el-button-group class="button-group">
-          <el-button size="mini" :type="boost?'primary':''" @click="boost = !boost">唱歌</el-button>
-          <el-button
-            size="mini"
-            :type="favoritism?'primary':''"
-            @click="favoritism =! favoritism"
-          >偏爱</el-button>
-        </el-button-group>
         <buffer-chart ref="chart" :data="bufferList" :height="bufferList.length * 100 + 120 +'px'" />
       </div>
       <div v-else>
@@ -72,19 +62,15 @@
 </template>
 <script>
 import adapter from "@/utils/adapter.js";
-import bufferChart from "./charts/Buffer";
-import centerChart from "./charts/Center";
-import bufferTable from "./table/Buffer";
-import centerTable from "./table/Center";
-import carousel from "./Carousel";
+import Carousel from "./Carousel";
 export default {
   props: ["characterList", "resize"],
   components: {
-    carousel,
-    "buffer-chart": bufferChart,
-    "center-chart": centerChart,
-    "buffer-table": bufferTable,
-    "center-table": centerTable
+    Carousel,
+    "center-chart": () => import("@/components/charts/characterList/Center"),
+    "buffer-chart": () => import("@/components/charts/characterList/Buffer"),
+    "buffer-table": () => import("@/components/table/characterList/Buffer"),
+    "center-table": () => import("@/components/table/characterList/Center"),
   },
   // watch: {
   //   resize: {
@@ -109,6 +95,7 @@ export default {
           hasSystemBuff: false,
           boost: this.boost,
           favoritism: this.favoritism,
+          templateCharacter: this.$store.state.setting.setting.templateCharacter
         };
         value.LiftRatioDefault = adapter.GetLiftRatio(payload);
         payload.hasSystemBuff = true;
@@ -146,7 +133,6 @@ export default {
     },
   },
   data() {
-    console.log(this.characterList);
     return {
       showType: "carousel",
       chartsType: "center",

@@ -41,8 +41,13 @@
   </div>
 </template>
 <script>
+import "v-charts/lib/bar.common";
+import "v-charts/lib/pie.common";
 export default {
   props: ["data", "height"],
+  components: {
+    "ve-chart": () => import("v-charts/lib/chart.common"),
+  },
   computed: {
     chartData() {
       let map = new Map();
@@ -61,25 +66,25 @@ export default {
       map.forEach((value, index) => {
         const row = {
           职业: index,
-          人数: value
+          人数: value,
         };
         result.push(row);
       });
       return {
         columns: ["职业", "人数"],
-        rows: result
+        rows: result,
       };
     },
     chartSettings() {
       return {
         dataOrder: {
           label: "人数",
-          order: "desc"
+          order: "desc",
         },
         type: this.type,
         limitShowNum: 20,
         radius: 150,
-        offsetY: 300
+        offsetY: 300,
       };
     },
     chartExtend() {
@@ -90,22 +95,22 @@ export default {
             label: {
               show: true,
               position: "outside",
-              formatter: "{b}: {c} ({d}%)"
-            }
-          }
+              formatter: "{b}: {c} ({d}%)",
+            },
+          },
         };
       }
       if (this.type === "bar") {
         result = {
           series: {
             label: {
-              show: true
-            }
-          }
+              show: true,
+            },
+          },
         };
       }
       return result;
-    }
+    },
   },
   methods: {
     changeType(type) {
@@ -113,14 +118,14 @@ export default {
     },
     changeClassType(classType) {
       this.classType = classType;
-    }
+    },
   },
   data() {
     return {
       type: "pie",
-      classType: "class_0"
+      classType: "class_0",
     };
-  }
+  },
 };
 </script>
 <style scoped>

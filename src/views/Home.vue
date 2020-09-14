@@ -19,8 +19,7 @@
         </p>
         <p>如果你不想用123456做密码，也没有问题。本站已强制开启了https，且密码在前端和后端都会经过哈希函数加密:</p>
         <p>
-          <image :src="imgSrc[0]" />
-          <el-image :src="imgSrc[0]" :fit="'fit'" :preview-src-list="imgSrc"></el-image>
+          <img src="@/assets/home/01.png" alt="fit" />
         </p>
         <p>上图是存放在数据库中的密码示例，这种加密是单向的，难以反向推出加密前的明文。</p>
         <p>
@@ -33,49 +32,13 @@
           后端用PHP写的，暂时没有开源的打算。
         </p>
       </div>
-      <el-divider content-position="left">创建团队说明</el-divider>
-      <div>
-        <p>
-          <el-image :src="imgSrc[3]" :fit="'fit'" :preview-src-list="imgSrc"></el-image>
-        </p>
-        <p>点击上方导航栏的我的小团体按钮，再点击搜索栏左侧的创建团队，输入相关信息即可创建团队。</p>
-        <p>
-          <el-image
-            :src="imgSrc[4]"
-            :fit="'contain'"
-            :preview-src-list="imgSrc"
-            style="height: 300px;width: 500px"
-          ></el-image>
-        </p>
-        <p>把新创建团队ID和加入密码分享给群友，他们就可以加入你的团队了。</p>
-      </div>
-      <el-divider content-position="left">加入团队说明</el-divider>
-      <div>
-        <p>
-          <el-image :src="imgSrc[5]" :fit="'fit'" :preview-src-list="imgSrc"></el-image>
-        </p>
-        <p>点击上方导航栏的我的小团体按钮，在搜索栏输入你要加入的团队ID，在弹出框输入团队加入密码后，点击右方的按钮，即可加入团队。</p>
-        <p>
-          <el-image :src="imgSrc[6]" :fit="'fit'" :preview-src-list="imgSrc"></el-image>
-        </p>
-      </div>
       <el-divider content-position="left">角色登记说明</el-divider>
       <div>
         <p>C的登记没什么好说的，把绿纱袋15s20s的伤害登记进去就行了，吃多少药看自己。</p>
         <p>奶登记是buff的数值：</p>
         <p>
-          <el-image
-            :src="imgSrc[1]"
-            :preview-src-list="imgSrc"
-            :fit="'scale-down'"
-            style="height: 160px;width: 300px"
-          ></el-image>
-          <el-image
-            :src="imgSrc[2]"
-            :preview-src-list="imgSrc"
-            :fit="'scale-down'"
-            style="height: 160px;width: 300px"
-          ></el-image>
+          <img src="@/assets/buffer/buffDefault.jpg" style="height: 160px;width: atuo;" alt="fit" />
+          <img src="@/assets/buffer/buffBurst.jpg" style="height: 160px;width: atuo;" alt="fit" />
         </p>
         <p>奶妈和奶萝都是登记buff的数值就行了，不需要算上唱歌和偏爱，本项目会自动计算唱歌和偏爱后的数值和对C提升率。</p>
         <p>奶爸请登记叠满二觉后的buff和太阳，有条件的可以测有魔王契约假紫光环之类的buff。</p>
@@ -115,28 +78,13 @@
 </template>
 <script>
 export default {
-  methods: {
-    setHistoricalDataVisible(){
-      this.historicalVisible = true
-    }
-  },
+  methods: {},
   data() {
-    const imgSrc = [
-      "./static/image/index/01.png",
-      "./static/image/index/buffDefault.jpg",
-      "./static/image/index/buffBurst.jpg",
-      "./static/image/index/02.png",
-      "./static/image/index/03.png",
-      "./static/image/index/04.png",
-      "./static/image/index/05.png"
-    ];
-    return {
-      imgSrc
-    };
-  }
+    return {};
+  },
 };
 </script>
-<style>
+<style scoped>
 #index p {
   text-indent: 2em;
 }

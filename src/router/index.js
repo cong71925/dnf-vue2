@@ -127,6 +127,68 @@ const routes = [
       }
     ]
   },
+  {
+    path: '/setting/',
+    name: 'Setting',
+    component: () => import('../views/Setting/Index.vue'),
+    meta: { requiresAuth: true },
+    children: [
+      {
+        path: 'home',
+        name: 'SettingHome',
+        component: () => import('../views/Setting/Home.vue'),
+        meta: { requiresAuth: true },
+      },
+      {
+        path: 'buffer',
+        name: 'SettingBuffer',
+        component: () => import('../views/Setting/Buffer.vue'),
+        meta: { requiresAuth: true },
+      }
+    ],
+  },
+  {
+    path: '/document/',
+    name: 'Document',
+    component: () => import('../views/Document/Index.vue'),
+    children: [
+      {
+        path: 'home',
+        name: 'DocumentHome',
+        component: () => import('../views/Document/Home.vue'),
+      },
+      {
+        path: 'group',
+        name: 'DocumentGroup',
+        component: () => import('../views/Document/Group.vue'),
+      },
+      {
+        path: 'groupview',
+        name: 'DocumentGroupView',
+        component: () => import('../views/Document/GroupView.vue'),
+      },
+      {
+        path: 'character',
+        name: 'DocumentCharacter',
+        component: () => import('../views/Document/Character.vue'),
+      },
+      {
+        path: 'account',
+        name: 'DocumentAccount',
+        component: () => import('../views/Document/Account.vue'),
+      },
+      {
+        path: 'setting',
+        name: 'DocumentSetting',
+        component: () => import('../views/Document/Setting.vue'),
+      },
+      {
+        path: 'log',
+        name: 'DocumentLog',
+        component: () => import('../views/Document/Log.vue'),
+      },
+    ],
+  },
 ]
 
 const router = new VueRouter({

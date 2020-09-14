@@ -6,24 +6,15 @@
           <i class="el-icon-odometer"></i>
           <span slot="title">团队总览</span>
         </sidebar-item>
-        <sidebar-item
-          :index="`/groupview/${id}/member`"
-          tooltip="成员信息"
-        >
+        <sidebar-item :index="`/groupview/${id}/member`" tooltip="成员信息">
           <i class="el-icon-s-custom"></i>
           <span slot="title">成员信息</span>
         </sidebar-item>
-        <sidebar-item
-          :index="`/groupview/${id}/character`"
-          tooltip="角色总览"
-        >
+        <sidebar-item :index="`/groupview/${id}/character`" tooltip="角色总览">
           <i class="el-icon-user"></i>
           <span slot="title">角色总览</span>
         </sidebar-item>
-        <sidebar-item
-          :index="`/groupview/${id}/setting`"
-          tooltip="团队管理"
-        >
+        <sidebar-item :index="`/groupview/${id}/setting`" tooltip="团队管理">
           <i class="el-icon-setting"></i>
           <span slot="title">团队管理</span>
         </sidebar-item>
@@ -35,11 +26,11 @@
   </el-container>
 </template>
 <script>
-import sidebar from "@/components/Sidebar.vue";
-import sidebarItem from "@/components/SidebarItem.vue";
+import Sidebar from "@/components/Sidebar.vue";
+import SidebarItem from "@/components/SidebarItem.vue";
 export default {
   props: ["id"],
-  components: { "sidebar": sidebar, "sidebar-item": sidebarItem },
+  components: { Sidebar, SidebarItem },
   computed: {
     activeName() {
       return this.$route.path;
