@@ -40,9 +40,7 @@ const actions = {
             })
                 .then(response => {
                     if (response.data.code === 0) {
-                        context.commit('setCharacterTypeNums', response.data.data)
-                        console.log(response.data)
-                        resolve()
+                        context.commit('setCharacterTypeNums', response.data.data)                        resolve()
                     } else {
                         reject(response.data.msg)
                     }
@@ -53,7 +51,6 @@ const actions = {
         })
     },
     infoModify(context, payload) {
-        console.log(payload)
         return new Promise((resolve, reject) => {
             axios({
                 url: 'account',
@@ -68,7 +65,6 @@ const actions = {
             })
                 .then(response => {
                     if (response.data.code === 0) {
-                        console.log(response.data)
                         resolve()
                     } else {
                         reject(response.data.msg)
@@ -80,7 +76,6 @@ const actions = {
         })
     },
     passwordModify(context, payload) {
-        console.log(payload)
         return new Promise((resolve, reject) => {
             axios({
                 url: 'account/updatePassword',
@@ -91,9 +86,7 @@ const actions = {
                 }
             })
                 .then(response => {
-                    console.log(response.data)
                     if (response.data.code === 0) {
-                        console.log(response.data)
                         resolve()
                     } else {
                         reject(response.data.msg)

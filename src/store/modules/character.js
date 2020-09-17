@@ -78,7 +78,6 @@ const actions = {
                 method: 'delete'
             })
                 .then(response => {
-                    console.log(response.data)
                     if (response.data.code === 0) {
                         resolve()
                     } else {
@@ -91,7 +90,6 @@ const actions = {
         })
     },
     updateCharacter(context, payload) {
-        console.log(payload)
         return new Promise((resolve, reject) => {
             axios({
                 url: 'character/' + payload.character_id,

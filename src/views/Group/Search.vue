@@ -61,7 +61,6 @@ export default {
           pageSize: this.pageSize,
         })
         .then((result) => {
-          console.log(result);
           this.resultList = result.list;
           this.count = result.count;
         })

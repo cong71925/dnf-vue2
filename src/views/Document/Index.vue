@@ -1,37 +1,67 @@
 <template>
   <el-container>
     <el-aside width="auto">
-      <sidebar :activeIndex="activeName" :router="true">
-        <sidebar-item index="/document/home">简介</sidebar-item>
-        <sidebar-sub>
-          <span slot="icon">使用说明</span>
-          <sidebar-item index="/document/group">我的团队</sidebar-item>
-          <sidebar-item index="/document/groupview">团队展示</sidebar-item>
-          <sidebar-item index="/document/character">我的角色</sidebar-item>
-          <sidebar-item index="/document/account">个人中心</sidebar-item>
-          <sidebar-item index="/document/setting">系统设置</sidebar-item>
-        </sidebar-sub>
-        <sidebar-item index="/document/log">更新日志</sidebar-item>
-      </sidebar>
+      <sidebar :activeName="activeName" :data="index" />
     </el-aside>
     <el-main>
-      <router-view />
+      <el-card>
+        <markdown-viewer :data="data" />
+      </el-card>
     </el-main>
   </el-container>
 </template>
 <script>
-import Sidebar from "@/components/Sidebar.vue";
-import SidebarSub from "@/components/SidebarSub.vue";
-import SidebarItem from "@/components/SidebarItem.vue";
+import axios from "axios";
+import Sidebar from "./components/Sidebar.vue";
+import MarkdownViewer from "@/components/MDViewer.vue";
 export default {
-  components: { Sidebar, SidebarSub, SidebarItem },
+  components: { Sidebar, MarkdownViewer },
+  props: ["fileName"],
   computed: {
     activeName() {
       return this.$route.path;
     },
   },
+  watch: {
+    fileName: {
+      handler() {
+        this.getData();
+      },
+      immediate: true,
+    },
+  },
+  created() {
+    this.getIndex();
+  },
+  methods: {
+    getData() {
+      axios
+        .get(`${this.path + this.fileName}.md`)
+        .then((result) => {
+          this.data = result.data;
+        })
+        .catch(() => {
+          this.data = "";
+        });
+    },
+    getIndex() {
+      axios
+        .get(`${this.path}index.json`)
+        .then((result) => {
+          this.index = result.data;
+        })
+        .catch(() => {});
+    },
+  },
+  beforeRouteUpdate(to, from, next) {
+    next();
+  },
   data() {
-    return {};
+    return {
+      index: [],
+      path: "../static/document/",
+      data: "",
+    };
   },
 };
 </script>

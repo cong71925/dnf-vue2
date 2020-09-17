@@ -1,98 +1,400 @@
 <template>
   <el-container>
-    <el-main id="index">
-      <h1>DNF团队数据管理系统</h1>
-      <el-divider content-position="left">项目说明</el-divider>
-      <div>
-        <p>
-          本项目主要面向于小团体，可以更方便地查看和管理每个群员的打团角色信息。
-          本项目可以登记角色，记录角色每次修改的数据，将其历史数据以图表显示。
-          对于奶系角色，还可以计算唱歌和偏爱后的buff数值和对C提升率。
-          在团队内还能通过表格或图表查看团员的角色的各项数据，以及伤害和buff的历史数据
-        </p>
+    <el-main class="el-main">
+      <el-backtop></el-backtop>
+      <div class="banner">
+        <div class="context">
+          <div class="title">
+            <h1>DNF团队数据管理系统</h1>
+            <p>轻松创建您的团队！</p>
+            <div class="button-group" v-if="$store.state.auth.isLogin">
+              <router-link to="/character">
+                <el-button>添加角色</el-button>
+              </router-link>
+              <router-link to="/group">
+                <el-button type="primary">添加团队</el-button>
+              </router-link>
+            </div>
+            <div class="button-group" v-else>
+              <router-link to="/login">
+                <el-button>登录</el-button>
+              </router-link>
+              <router-link to="/register">
+                <el-button type="primary">注册</el-button>
+              </router-link>
+            </div>
+          </div>
+          <div></div>
+          <div class="snow-man-box">
+            <div>
+              <img class="snow-man-1" src="@/assets/fatSnowMan/女肥法师.png" alt="fit" />
+              <img class="snow-man-2" src="@/assets/fatSnowMan/女肥法师.png" alt="fit" />
+              <img class="snow-man-3" src="@/assets/fatSnowMan/女肥法师.png" alt="fit" />
+            </div>
+          </div>
+        </div>
       </div>
-      <el-divider content-position="left">安全声明</el-divider>
-      <div>
-        <p>
-          如果你担心密码泄露的问题，那么仅当本网站，我建议大家使用123456作为登录密码。
-          （反正这破站的账号被盗了也没什么问题的）
-        </p>
-        <p>如果你不想用123456做密码，也没有问题。本站已强制开启了https，且密码在前端和后端都会经过哈希函数加密:</p>
-        <p>
-          <img src="@/assets/home/01.png" alt="fit" />
-        </p>
-        <p>上图是存放在数据库中的密码示例，这种加密是单向的，难以反向推出加密前的明文。</p>
-        <p>
-          本项目的前端部分已在
-          <el-link
-            href="https://github.com/cong71925/DNF-vue"
-            :underline="false"
-            target="_blank"
-          >Github</el-link>上开源。
-          后端用PHP写的，暂时没有开源的打算。
-        </p>
+      <div class="card-show">
+        <div class="context">
+          <el-card class="auto-hide">
+            <img src="@/assets/element-ui.jpg" style="width: auto;height: 250px;" alt="fit" />
+          </el-card>
+          <div></div>
+          <div class="title">
+            <h1>卡片式的显示风格</h1>
+            <p>基于Element-ui，清爽简洁的界面!</p>
+          </div>
+        </div>
       </div>
-      <el-divider content-position="left">角色登记说明</el-divider>
-      <div>
-        <p>C的登记没什么好说的，把绿纱袋15s20s的伤害登记进去就行了，吃多少药看自己。</p>
-        <p>奶登记是buff的数值：</p>
-        <p>
-          <img src="@/assets/buffer/buffDefault.jpg" style="height: 160px;width: atuo;" alt="fit" />
-          <img src="@/assets/buffer/buffBurst.jpg" style="height: 160px;width: atuo;" alt="fit" />
-        </p>
-        <p>奶妈和奶萝都是登记buff的数值就行了，不需要算上唱歌和偏爱，本项目会自动计算唱歌和偏爱后的数值和对C提升率。</p>
-        <p>奶爸请登记叠满二觉后的buff和太阳，有条件的可以测有魔王契约假紫光环之类的buff。</p>
-        <p>奶测buff可以找朋友进修炼场或者帝国竞技场，这里不再赘述。</p>
+      <div class="charts-show">
+        <div class="context">
+          <div class="title">
+            <h1>直观的数据展示方式</h1>
+            <p>通过图表展示数据，直观又好看！</p>
+          </div>
+          <el-card>
+            <div class="button-group">
+              <el-button-group>
+                <el-button
+                  :type="chartsType==='center'?'primary':''"
+                  size="mini"
+                  @click="chartsType='center'"
+                >输出</el-button>
+                <el-button
+                  :type="chartsType==='buffer'?'primary':''"
+                  size="mini"
+                  @click="chartsType='buffer'"
+                >奶</el-button>
+              </el-button-group>
+              <el-button-group v-if="chartsType==='buffer'" style="margin-left: 5px;">
+                <el-button :type="boost?'primary':''" size="mini" @click="boost=!boost">唱歌</el-button>
+                <el-button
+                  :type="favoritism?'primary':''"
+                  size="mini"
+                  @click="favoritism=!favoritism"
+                >偏爱</el-button>
+              </el-button-group>
+            </div>
+            <p></p>
+            <buffer-charts :data="bufferDataComputed" v-if="chartsType==='buffer'" />
+            <center-charts :data="centerData" v-if="chartsType==='center'" />
+          </el-card>
+        </div>
       </div>
-      <el-divider content-position="left">提升率计算说明</el-divider>
-      <div>
-        <p>
-          为便于计算，计算提升率的模板C为3000力智，2400三攻，系统奶为8000力智，该模板C偏弱的原因是为了方便奶之间的横向比较。
-          因此计算出来的提升率仅有参考意义。
-        </p>
+      <div class="bottom-show">
+        <div class="context">
+          <div class="snow-man-box">
+            <div>
+              <img class="snow-man-1" src="@/assets/fatSnowMan/伊斯塔肥灵.png" alt="fit" />
+              <img class="snow-man-2" src="@/assets/fatSnowMan/元素肥灵.png" alt="fit" />
+              <img class="snow-man-3" src="@/assets/fatSnowMan/肥灵胖怪.png" alt="fit" />
+              <img class="snow-man-4" src="@/assets/fatSnowMan/肥蚀.png" alt="fit" />
+              <img class="snow-man-5" src="@/assets/fatSnowMan/肥月女神.png" alt="fit" />
+            </div>
+          </div>
+          <div></div>
+          <div class="title">
+            <h1>开始使用</h1>
+            <p>现在，开始使用吧！</p>
+            <div class="button-group">
+              <router-link to="/document/home">
+                <el-button>使用说明</el-button>
+              </router-link>
+              <router-link to="/register" v-if="!$store.state.auth.isLogin">
+                <el-button type="primary">注册</el-button>
+              </router-link>
+            </div>
+          </div>
+        </div>
       </div>
-      <el-divider content-position="left">补充</el-divider>
-      <div>
-        <p>
-          本项目的职业头像来源于colg的
-          <el-link
-            href="https://bbs.colg.cn/thread-7501852-1-1.html"
-            :underline="false"
-            target="_blank"
-            icon="el-icon-link"
-          >肥猫池塘</el-link>大佬，感谢大佬的制作与分享！
-        </p>
-        <p>
-          本站仅为个人学习研究性质，如果你发现网站打不开，那多半是忘了交钱导致vps停机，或者是ip被ban，届时请通过
-          <el-link
-            href="mailto:cong71925@gmail.com"
-            icon="el-icon-message"
-            :underline="false"
-            target="_blank"
-          >cong71925@gmail.com</el-link>联系我，
-          如果你发现了什么bug或者有什么建议，也可以发邮件至我的邮箱。
-        </p>
+      <div class="footer">
+        <div class="context">
+          <div class="icon-box">
+            <el-link href="https://github.com/cong71925/dnf-vue2" :underline="false" target="_blank">
+              <icon-base icon-name="github" height="30" width="30" class="icon">
+                <icon-github />
+              </icon-base>
+            </el-link>
+            <el-link href="mailto:cong71925@gmail.com" :underline="false" target="_blank">
+              <icon-base icon-name="邮件" height="30" width="30" class="icon">
+                <icon-mail />
+              </icon-base>
+            </el-link>
+            <el-link href="https://blog.congvps.top" :underline="false" target="_blank">
+              <icon-base icon-name="博客" height="30" width="30" class="icon">
+                <icon-blog />
+              </icon-base>
+            </el-link>
+          </div>
+        </div>
       </div>
     </el-main>
   </el-container>
 </template>
 <script>
+import adapter from "@/utils/adapter.js";
 export default {
-  methods: {},
+  components: {
+    BufferCharts: () => import("@/components/charts/characterList/Buffer"),
+    CenterCharts: () => import("@/components/charts/characterList/Center"),
+    IconBase: () => import("@/components/icon/IconBase"),
+    IconGithub: () => import("@/components/icon/github/Index"),
+    IconMail: () => import("@/components/icon/mail/Index"),
+    IconBlog: () => import("@/components/icon/blog/Index"),
+  },
+  computed: {
+    bufferDataComputed() {
+      let data = this.bufferData;
+      let result = data.map((value) => {
+        let payload = {
+          bufferData: value,
+          hasSystemBuff: false,
+          boost: this.boost,
+          favoritism: this.favoritism,
+          templateCharacter: this.$store.state.setting.setting
+            .templateCharacter,
+        };
+        value.LiftRatioDefault = adapter.GetLiftRatio(payload);
+        payload.hasSystemBuff = true;
+        value.LiftRatioBurst = adapter.GetLiftRatio(payload);
+        value = adapter.BufferDataAdapter(payload);
+        return value;
+      });
+      return result;
+    },
+  },
   data() {
-    return {};
+    return {
+      chartsType: "center",
+      boost: true,
+      favoritism: true,
+      centerData: [
+        {
+          character_name: "测试1",
+          damage_15s: 2000,
+          damage_20s: 3000,
+        },
+        {
+          character_name: "测试2",
+          damage_15s: 4000,
+          damage_20s: 4200,
+        },
+        {
+          character_name: "测试3",
+          damage_15s: 3800,
+          damage_20s: 4600,
+        },
+        {
+          character_name: "测试4",
+          damage_15s: 5000,
+          damage_20s: 6000,
+        },
+      ],
+      bufferData: [
+        {
+          character_name: "神思者",
+          class_1: "神思者",
+          buff_atk: 3200,
+          buff_default: 20000,
+          buff_burst: 22000,
+        },
+        {
+          character_name: "炽天使",
+          class_1: "炽天使",
+          buff_atk: 2400,
+          buff_default: 16000,
+          buff_burst: 23000,
+        },
+        {
+          character_name: "冥月女神",
+          class_1: "冥月女神",
+          buff_atk: 2400,
+          buff_default: 16000,
+          buff_burst: 23000,
+        },
+      ],
+    };
   },
 };
 </script>
-<style scoped>
-#index p {
-  text-indent: 2em;
+
+<style lang="scss" scoped>
+.el-main {
+  padding: 0;
 }
-.el-link {
-  text-indent: 0;
+.button-group {
+  display: flex;
+  a {
+    margin: 0 5px 0 5px;
+  }
 }
-.el-image {
-  text-indent: 0;
-  max-width: 90%;
+
+.context {
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  max-width: 1200px;
+  padding: 30px 30px 30px 30px;
+
+  .title {
+    h1 {
+      font-size: 40px;
+      line-height: 40px;
+      margin: 20px 0 20px 0;
+    }
+  }
+}
+.banner {
+  width: 100%;
+  overflow: hidden;
+  background-color: white;
+
+  .snow-man-box {
+    margin-top: 35px;
+    position: relative;
+    animation: RtoL 2s;
+
+    .snow-man-1 {
+      position: relative;
+      transform: rotateY(180deg);
+      z-index: 2;
+    }
+
+    .snow-man-2 {
+      position: relative;
+      transform: rotateY(180deg);
+      z-index: 2;
+    }
+
+    .snow-man-3 {
+      position: absolute;
+      transform: rotateY(180deg);
+      top: -35px;
+      left: 25px;
+    }
+  }
+}
+
+.card-show {
+  width: 100%;
+  background-color: #f2f6fc;
+  .context {
+    animation: fadeIn 2s;
+    .title {
+      text-align: right;
+    }
+  }
+}
+
+.charts-show {
+  width: 100%;
+  overflow: hidden;
+  background-color: white;
+  .context {
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+}
+
+.bottom-show {
+  width: 100%;
+  background-color: #f2f6fc;
+  .context {
+    .title {
+      text-align: right;
+    }
+
+    .snow-man-box {
+      margin-top: 35px;
+      position: relative;
+      animation: LtoR 2s;
+
+      .snow-man-1 {
+        position: relative;
+        z-index: 2;
+      }
+
+      .snow-man-2 {
+        position: relative;
+        z-index: 2;
+      }
+
+      .snow-man-3 {
+        position: relative;
+        z-index: 2;
+      }
+      .snow-man-4 {
+        position: absolute;
+        top: -35px;
+        left: 50px;
+      }
+      .snow-man-5 {
+        position: absolute;
+        top: -35px;
+        left: 120px;
+      }
+    }
+  }
+}
+
+.footer {
+  background-color: white;
+
+  .context {
+    justify-content: center;
+  }
+
+  .icon-box {
+    color: #606266;
+    text-align: center;
+
+    .icon {
+      margin: 0 10px 0 10px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .snow-man-box {
+    display: none;
+  }
+  .auto-hide {
+    display: none;
+  }
+  .context {
+    .title {
+      h1 {
+        font-size: 20px;
+        line-height: 20px;
+      }
+    }
+  }
+}
+
+@keyframes RtoL {
+  from {
+    right: -300px;
+  }
+  to {
+    right: 0;
+  }
+}
+
+@keyframes LtoR {
+  from {
+    left: -300px;
+  }
+  to {
+    left: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 </style>

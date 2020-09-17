@@ -72,15 +72,6 @@
 <script>
 export default {
   props: ["character"],
-  computed: {},
-  watch: {
-    "form.job": {
-      handler(val, old) {
-        console.log(val, old);
-      },
-      immediate: true,
-    },
-  },
   methods: {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {

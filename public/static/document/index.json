@@ -1,0 +1,32 @@
+[
+    {
+        "label": "简介",
+        "value": "home"
+    },
+    {
+        "label": "使用说明",
+        "value": "description",
+        "children": [
+            {
+                "label": "我的团队",
+                "value": "group"
+            },
+            {
+                "label": "团队展示",
+                "value": "groupview"
+            },
+            {
+                "label": "个人中心",
+                "value": "account"
+            },
+            {
+                "label": "系统设置",
+                "value": "setting"
+            }
+        ]
+    },
+    {
+        "label": "更新日志",
+        "value": "log"
+    }
+]

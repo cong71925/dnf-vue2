@@ -65,7 +65,6 @@ const actions = {
                 .then(response => {
                     if (response.data.code === 0) {
                         context.commit('login', response.data.data)
-                        console.log(response.data)
                         resolve()
                     } else {
                         reject(response.data.msg)
@@ -111,7 +110,6 @@ const actions = {
             })
                 .then(response => {
                     if (response.data.code === 0) {
-                        console.log(response.data)
                         resolve()
                     } else {
                         reject(response.data.msg)

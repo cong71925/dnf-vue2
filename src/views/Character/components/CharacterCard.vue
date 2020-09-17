@@ -78,7 +78,6 @@ export default {
         if (valid) {
           this.modifyCharacter();
         } else {
-          console.log("error submit!!");
           return false;
         }
       });

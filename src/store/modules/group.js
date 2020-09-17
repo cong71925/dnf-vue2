@@ -96,7 +96,6 @@ const actions = {
                 method: 'delete'
             })
                 .then(response => {
-                    console.log(response.data)
                     if (response.data.code === 0) {
                         resolve()
                     } else {
@@ -139,7 +138,6 @@ const actions = {
             })
                 .then(response => {
                     if (response.data.code === 0) {
-                        console.log(response.data.data)
                         resolve()
                     } else {
                         reject(response.data.msg)
@@ -189,7 +187,6 @@ const actions = {
         })
     },
     updateGroup(context, payload) {
-        console.log(String(payload.attendable))
         return new Promise((resolve, reject) => {
             axios({
                 url: 'group/' + payload.id,
@@ -219,7 +216,6 @@ const actions = {
                 method: 'delete'
             })
                 .then(response => {
-                    console.log(response.data)
                     if (response.data.code === 0) {
                         resolve()
                     } else {
@@ -238,7 +234,6 @@ const actions = {
                 method: 'delete'
             })
                 .then(response => {
-                    console.log(response.data)
                     if (response.data.code === 0) {
                         resolve()
                     } else {
@@ -257,7 +252,6 @@ const actions = {
                 method: 'delete'
             })
                 .then(response => {
-                    console.log(response.data)
                     if (response.data.code === 0) {
                         resolve()
                     } else {
@@ -276,7 +270,6 @@ const actions = {
                 method: 'put'
             })
                 .then(response => {
-                    console.log(response.data)
                     if (response.data.code === 0) {
                         resolve()
                     } else {

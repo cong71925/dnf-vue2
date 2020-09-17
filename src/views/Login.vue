@@ -1,5 +1,5 @@
 <template>
-  <div id="panel_login">
+  <div class="panel">
     <el-container>
       <el-main>
         <el-form :model="form" status-icon :rules="rules" ref="form">
@@ -18,7 +18,7 @@
             ></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" id="submit" @click="submitForm('form')">登录</el-button>
+            <el-button type="primary" class="submit" @click="submitForm('form')">登录</el-button>
           </el-form-item>
         </el-form>
       </el-main>
@@ -55,7 +55,6 @@ export default {
               });
             });
         } else {
-          console.log("error submit!!");
           return false;
         }
       });
@@ -91,12 +90,12 @@ export default {
 };
 </script>
 <style scoped>
-#panel_login {
+.panel {
   line-height: 200%;
   margin: auto;
   max-width: 600px;
 }
-#submit {
+.submit {
   margin-top: 30px;
   width: 100%;
   text-align: center;
