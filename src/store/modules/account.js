@@ -8,12 +8,12 @@ const mutations = {
     setUserInfo(state, payload) {
         state.userInfo = payload
     },
-    setCharacterTypeNums(state, payload){
+    setCharacterTypeNums(state, payload) {
         state.characterTypeNums = payload
     }
 }
 const actions = {
-    getUserInfo(context) {
+    getUserInfo({ commit }) {
         return new Promise((resolve, reject) => {
             axios({
                 url: 'account',
@@ -21,7 +21,7 @@ const actions = {
             })
                 .then(response => {
                     if (response.data.code === 0) {
-                        context.commit('setUserInfo', response.data.data)
+                        commit('setUserInfo', response.data.data)
                         resolve()
                     } else {
                         reject(response.data.msg)
@@ -32,7 +32,7 @@ const actions = {
                 })
         })
     },
-    getCharacterTypeNums(context){
+    getCharacterTypeNums({ commit }) {
         return new Promise((resolve, reject) => {
             axios({
                 url: 'account/getCharacterTypeNums',
@@ -40,7 +40,8 @@ const actions = {
             })
                 .then(response => {
                     if (response.data.code === 0) {
-                        context.commit('setCharacterTypeNums', response.data.data)                        resolve()
+                        commit('setCharacterTypeNums', response.data.data)
+                        resolve()
                     } else {
                         reject(response.data.msg)
                     }
@@ -50,7 +51,7 @@ const actions = {
                 })
         })
     },
-    infoModify(context, payload) {
+    infoModify(content, payload) {
         return new Promise((resolve, reject) => {
             axios({
                 url: 'account',
@@ -75,7 +76,7 @@ const actions = {
                 })
         })
     },
-    passwordModify(context, payload) {
+    passwordModify(content, payload) {
         return new Promise((resolve, reject) => {
             axios({
                 url: 'account/updatePassword',

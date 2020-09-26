@@ -26,6 +26,10 @@
         ]
     },
     {
+        "label": "已知问题",
+        "value": "issues"
+    },
+    {
         "label": "更新日志",
         "value": "log"
     }

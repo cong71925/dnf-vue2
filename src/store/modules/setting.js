@@ -16,13 +16,16 @@ const mutations = {
     loadSetting(state) {
         const payload = JSON.parse(localStorage.getItem('setting'))
         for (let i in setting) {
-            if (payload[i] !== undefined) {
-                if (payload[i] instanceof Object) state.setting[i] = { ...payload[i] }
-                else state.setting[i] = payload[i]
-            }
-            else {
+            if (payload === null) {
                 if (setting[i] instanceof Object) state.setting[i] = { ...setting[i] }
                 else state.setting[i] = setting[i]
+            }
+            else if (payload[i] === undefined) {
+                if (setting[i] instanceof Object) state.setting[i] = { ...setting[i] }
+                else state.setting[i] = setting[i]
+            } else {
+                if (payload[i] instanceof Object) state.setting[i] = { ...payload[i] }
+                else state.setting[i] = payload[i]
             }
         }
     },
@@ -31,8 +34,8 @@ const mutations = {
     },
 }
 const actions = {
-    loadSetting(context) {
-        context.commit('loadSetting')
+    loadSetting(content) {
+        content.commit('loadSetting')
     },
     changeLiftRatioTemplate({ commit, state }, payload) {
         let result = { ...state.setting }

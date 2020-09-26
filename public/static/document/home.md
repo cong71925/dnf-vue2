@@ -1,15 +1,14 @@
 # DNF团队数据管理系统
-本系统主要面向于小团体，可以更方便地查看和管理每个群员的打团角色信息。
-本项目可以登记角色，记录角色每次修改的数据，将其历史数据以图表显示。
+本系统适用于个人和团体，可以更方便地查看和管理每个成员的角色信息。
+本系统会对每个角色记录下每次修改的数据，并将其历史数据整合成表格或图表的形式显示。
 对于奶系角色，还可以计算唱歌和偏爱后的buff数值和对C提升率。
 在团队内还能通过表格或图表查看团员的角色的各项数据，以及伤害和buff的历史数据。  
 
-## 安全声明
-本项目的前端部分已在[Github](https://github.com/cong71925/DNF-vue)上开源。
-后端用PHP写的，暂时没有开源的打算。
+## 项目说明
+本项目前端部分基于[vue](https://github.com/vuejs/vue), [element-ui](https://github.com/ElemeFE/element)和[v-charts](https://github.com/ElemeFE/v-charts)实现，后端部分基于[thinkphp6](https://github.com/top-think/think)实现。  
+项目源代码托管在[GitHub](https://github.com/cong71925/dnf-vue2)。
 
 ## 补充
 
 本项目的职业头像来源于colg的[肥猫池塘](https://bbs.colg.cn/thread-7501852-1-1.html)
-本站仅为个人学习研究性质，如果你发现网站打不开，那多半是忘了交钱导致vps停机，或者是ip被ban，
-届时请通过[email](mailto:cong71925@gmail.com)联系我，如果你发现了什么bug或者有什么建议，也可以发邮件至我的邮箱。
+本站仅为个人学习研究性质，如果你发现了什么bug或者有什么建议，可以通过[email](mailto:cong71925@gmail.com)联系我。

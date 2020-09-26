@@ -6,29 +6,47 @@
           <el-image style="width: 40px; height: 40px" :src="imgUrl" fit="fit"></el-image>
           <div>{{ character.character_name }}</div>
         </div>
-        <el-row class="context">
+        <el-row class="content">
           <div>
-            <el-col :span="12">职业:</el-col>
-            <el-col :span="12">{{ character.class_1 }}</el-col>
-            <el-col :span="12">职责:</el-col>
-            <el-col :span="12">{{ character.job }}</el-col>
+            <el-row>
+              <el-col :span="12">职业:</el-col>
+              <el-col :span="12">{{ character.class_1 }}</el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="12">职责:</el-col>
+              <el-col :span="12">{{ character.job }}</el-col>
+            </el-row>
             <div v-if="character.job == '奶'">
-              <el-col :span="12">常驻力智:</el-col>
-              <el-col :span="12">{{ bufferData.buff_default }}</el-col>
-              <el-col :span="12">常驻三攻:</el-col>
-              <el-col :span="12">{{ bufferData.buff_atk }}</el-col>
-              <el-col :span="12">太阳力智:</el-col>
-              <el-col :span="12">{{ bufferData.buff_burst }}</el-col>
-              <el-col :span="12">无系统奶提升率:</el-col>
-              <el-col :span="12">{{ bufferData.liftRatioDefault }}倍</el-col>
-              <el-col :span="12">有系统奶提升率:</el-col>
-              <el-col :span="12">{{ bufferData.liftRatioBurst }}倍</el-col>
+              <el-row>
+                <el-col :span="12">常驻力智:</el-col>
+                <el-col :span="12">{{ bufferData.buff_default }}</el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="12">常驻三攻:</el-col>
+                <el-col :span="12">{{ bufferData.buff_atk }}</el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="12">太阳力智:</el-col>
+                <el-col :span="12">{{ bufferData.buff_burst }}</el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="12">无系统奶提升率:</el-col>
+                <el-col :span="12">{{ bufferData.liftRatioDefault }}倍</el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="12">有系统奶提升率:</el-col>
+                <el-col :span="12">{{ bufferData.liftRatioBurst }}倍</el-col>
+              </el-row>
             </div>
             <div v-else>
-              <el-col :span="12">15s绿纱袋:</el-col>
-              <el-col :span="12">{{ character.damage_15s }}e</el-col>
-              <el-col :span="12">20s绿纱袋:</el-col>
-              <el-col :span="12">{{ character.damage_20s }}e</el-col>
+              <el-row>
+                <el-col :span="12">15s绿纱袋:</el-col>
+                <el-col :span="12">{{ character.damage_15s }}e</el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="12">20s绿纱袋:</el-col>
+                <el-col :span="12">{{ character.damage_20s }}e</el-col>
+              </el-row>
             </div>
           </div>
         </el-row>
@@ -58,7 +76,7 @@ export default {
         hasSystemBuff: false,
         boost: this.boost,
         favoritism: this.favoritism,
-        templateCharacter: this.$store.state.setting.setting.templateCharacter
+        templateCharacter: this.$store.state.setting.setting.templateCharacter,
       };
       data.liftRatioDefault = adapter.GetLiftRatio(payload);
       payload.hasSystemBuff = true;
@@ -114,7 +132,7 @@ export default {
   display: flex;
   align-items: center;
 }
-.context {
+.content {
   flex: 1;
   display: flex;
   flex-direction: column;

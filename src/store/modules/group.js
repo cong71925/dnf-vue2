@@ -25,7 +25,7 @@ const mutations = {
     },
 }
 const actions = {
-    getGroupList(context, payload) {
+    getGroupList({ commit }, payload) {
         return new Promise((resolve, reject) => {
             axios({
                 url: 'group',
@@ -37,7 +37,7 @@ const actions = {
             })
                 .then(response => {
                     if (response.data.code === 0) {
-                        context.commit('setGroupList', response.data.data)
+                        commit('setGroupList', response.data.data)
                         resolve()
                     } else {
                         reject(response.data.msg)
@@ -48,7 +48,7 @@ const actions = {
                 })
         })
     },
-    searchGroup(context, payload) {
+    searchGroup(content, payload) {
         return new Promise((resolve, reject) => {
             axios({
                 url: `group/search?keyword=${payload.keyword}&page=${payload.page}&pageSize=${payload.pageSize}`,
@@ -66,7 +66,7 @@ const actions = {
                 })
         })
     },
-    createGroup(context, payload) {
+    createGroup(content, payload) {
         return new Promise((resolve, reject) => {
             axios({
                 url: 'group',
@@ -89,7 +89,7 @@ const actions = {
                 })
         })
     },
-    deleteCharacter(context, payload) {
+    deleteCharacter(content, payload) {
         return new Promise((resolve, reject) => {
             axios({
                 url: 'character/' + payload,
@@ -107,7 +107,7 @@ const actions = {
                 })
         })
     },
-    getGroupInfo(context, payload) {
+    getGroupInfo({ commit }, payload) {
         return new Promise((resolve, reject) => {
             axios({
                 url: 'group/' + payload,
@@ -115,7 +115,7 @@ const actions = {
             })
                 .then(response => {
                     if (response.data.code === 0) {
-                        context.commit('setGroupInfo', response.data.data)
+                        commit('setGroupInfo', response.data.data)
                         resolve()
                     } else {
                         reject(response.data.msg)
@@ -126,7 +126,7 @@ const actions = {
                 })
         })
     },
-    groupJoin(context, payload) {
+    groupJoin(content, payload) {
         return new Promise((resolve, reject) => {
             axios({
                 url: 'group/join',
@@ -148,7 +148,7 @@ const actions = {
                 })
         })
     },
-    getGroupMember(context, payload) {
+    getGroupMember({ commit }, payload) {
         return new Promise((resolve, reject) => {
             axios({
                 url: 'memberlist/' + payload,
@@ -156,7 +156,7 @@ const actions = {
             })
                 .then(response => {
                     if (response.data.code === 0) {
-                        context.commit('setMemberList', response.data.data)
+                        commit('setMemberList', response.data.data)
                         resolve()
                     } else {
                         reject(response.data.msg)
@@ -167,7 +167,7 @@ const actions = {
                 })
         })
     },
-    getGroupCharacter(context, payload) {
+    getGroupCharacter({ commit }, payload) {
         return new Promise((resolve, reject) => {
             axios({
                 url: 'membercharacter/' + payload,
@@ -175,7 +175,7 @@ const actions = {
             })
                 .then(response => {
                     if (response.data.code === 0) {
-                        context.commit('setCharacterList', response.data.data)
+                        commit('setCharacterList', response.data.data)
                         resolve()
                     } else {
                         reject(response.data.msg)
@@ -186,7 +186,7 @@ const actions = {
                 })
         })
     },
-    updateGroup(context, payload) {
+    updateGroup(content, payload) {
         return new Promise((resolve, reject) => {
             axios({
                 url: 'group/' + payload.id,
@@ -209,7 +209,7 @@ const actions = {
                 })
         })
     },
-    deleteGroup(context, payload) {
+    deleteGroup(content, payload) {
         return new Promise((resolve, reject) => {
             axios({
                 url: 'group/' + payload,
@@ -227,7 +227,7 @@ const actions = {
                 })
         })
     },
-    quitGroup(context, payload) {
+    quitGroup(content, payload) {
         return new Promise((resolve, reject) => {
             axios({
                 url: 'member/' + payload,
@@ -245,7 +245,7 @@ const actions = {
                 })
         })
     },
-    deleteMember(context, payload) {
+    deleteMember(content, payload) {
         return new Promise((resolve, reject) => {
             axios({
                 url: 'member/' + payload.groupID + '/' + payload.userID,
@@ -263,7 +263,7 @@ const actions = {
                 })
         })
     },
-    transferAdmin(context, payload) {
+    transferAdmin(content, payload) {
         return new Promise((resolve, reject) => {
             axios({
                 url: 'transferadmin/' + payload.groupID + '/' + payload.userID,
@@ -281,7 +281,7 @@ const actions = {
                 })
         })
     },
-    updatePassword(context, payload) {
+    updatePassword(content, payload) {
         return new Promise((resolve, reject) => {
             axios({
                 url: 'group/password/' + payload.id,

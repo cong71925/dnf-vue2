@@ -5,6 +5,7 @@ import account from './modules/account'
 import character from './modules/character'
 import group from './modules/group'
 import setting from './modules/setting'
+import document from './modules/document'
 
 Vue.use(Vuex)
 
@@ -13,17 +14,16 @@ export default new Vuex.Store({
     loading: false
   },
   mutations: {
-    setLoading(state, payload){
+    setLoading(state, payload) {
       state.loading = payload
     }
   },
-  actions: {
-  },
   modules: {
-    auth: auth,
-    account: account,
-    character: character,
-    group: group,
-    setting: setting
+    auth,
+    account,
+    character,
+    group,
+    setting,
+    document
   }
 })

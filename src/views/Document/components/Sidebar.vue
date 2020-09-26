@@ -1,6 +1,6 @@
 <template>
   <sidebar :activeIndex="activeName" :router="true">
-    <sidebar-item :model="item" v-for="item in data" :key="item.value" />
+    <sidebar-item v-for="item in data" :model="item" :activeName="activeName" :key="item.value" />
   </sidebar>
 </template>
 <script>

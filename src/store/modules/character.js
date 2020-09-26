@@ -2,7 +2,7 @@ import axios from "../../axios"
 const state = {}
 const mutations = {}
 const actions = {
-    getCharacterList(context, payload) {
+    getCharacterList(content, payload) {
         return new Promise((resolve, reject) => {
             axios({
                 url: 'character',
@@ -24,7 +24,7 @@ const actions = {
                 })
         })
     },
-    getCharacterHistorical(context, payload) {
+    getCharacterHistorical(content, payload) {
         return new Promise((resolve, reject) => {
             axios({
                 url: 'character/' + payload,
@@ -42,7 +42,7 @@ const actions = {
                 })
         })
     },
-    createCharacter(context, payload) {
+    createCharacter(content, payload) {
         return new Promise((resolve, reject) => {
             axios({
                 url: 'character',
@@ -71,7 +71,7 @@ const actions = {
                 })
         })
     },
-    deleteCharacter(context, payload) {
+    deleteCharacter(content, payload) {
         return new Promise((resolve, reject) => {
             axios({
                 url: 'character/' + payload,
@@ -89,7 +89,7 @@ const actions = {
                 })
         })
     },
-    updateCharacter(context, payload) {
+    updateCharacter(content, payload) {
         return new Promise((resolve, reject) => {
             axios({
                 url: 'character/' + payload.character_id,
@@ -118,7 +118,7 @@ const actions = {
                 })
         })
     },
-    deleteCharacterHistorical(context, payload) {
+    deleteCharacterHistorical(content, payload) {
         return new Promise((resolve, reject) => {
             axios({
                 url: 'character/historical/' + payload,

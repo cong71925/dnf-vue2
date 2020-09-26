@@ -9,24 +9,23 @@
   </el-container>
 </template>
 <script>
-import navbar from "@/Navbar";
+import Navbar from "@/Navbar";
 export default {
-  components: { navbar: navbar },
+  components: { Navbar },
   created() {
+    // 页面加载时，加载保存在本地的token和配置文件
     this.$store.dispatch("auth/getToken");
     this.$store.dispatch("setting/loadSetting");
   },
-  methods: {},
   name: "App",
-  data() {
-    return {};
-  },
 };
 </script>
 <style>
 #container {
   border-radius: 0px;
   min-height: 100vh;
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
 }
 @media (max-width: 768px) {
   #app {

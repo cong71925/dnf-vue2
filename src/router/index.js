@@ -24,12 +24,6 @@ const routes = [
     meta: { requiresAuth: false }
   },
   {
-    path: '/log',
-    name: 'Log',
-    component: () => import('../views/Log.vue'),
-    meta: { requiresAuth: false }
-  },
-  {
     path: '/account/',
     name: 'Account',
     component: () => import('../views/Account/Index.vue'),
@@ -151,6 +145,7 @@ const routes = [
     path: '/document/:fileName?',
     name: 'Document',
     component: () => import('../views/Document/Index.vue'),
+    meta: { requiresAuth: false },
     props: true,
   },
 ]

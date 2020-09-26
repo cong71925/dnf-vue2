@@ -52,7 +52,7 @@ const mutations = {
     }
 }
 const actions = {
-    login(context, payload) {
+    login({ commit }, payload) {
         return new Promise((resolve, reject) => {
             axios({
                 url: 'login',
@@ -64,7 +64,7 @@ const actions = {
             })
                 .then(response => {
                     if (response.data.code === 0) {
-                        context.commit('login', response.data.data)
+                        commit('login', response.data.data)
                         resolve()
                     } else {
                         reject(response.data.msg)
@@ -75,7 +75,7 @@ const actions = {
                 })
         })
     },
-    logout(context) {
+    logout({ commit }) {
         return new Promise((resolve, reject) => {
             axios({
                 url: 'logout',
@@ -83,7 +83,7 @@ const actions = {
             })
                 .then(response => {
                     if (response.data.code === 0) {
-                        context.commit('logout')
+                        commit('logout')
                         resolve()
                     } else {
                         reject(response.data.msg)
@@ -94,7 +94,7 @@ const actions = {
                 })
         })
     },
-    register(context, payload) {
+    register(content, payload) {
         return new Promise((resolve, reject) => {
             axios({
                 url: 'register',
@@ -120,7 +120,7 @@ const actions = {
                 })
         })
     },
-    getToken(context) {
+    getToken({ commit }) {
         if (localStorage.getItem('isLogin')) {
             const userID = Number(localStorage.getItem('userID'))
             const token = localStorage.getItem('token')
@@ -129,9 +129,9 @@ const actions = {
             const expireTime = Number(localStorage.getItem('expireTime'))
             const time = new Date().getTime() / 1000
             if (time > expireTime) {
-                context.commit('logout')
+                commit('logout')
             } else {
-                context.commit('setToken', {
+                commit('setToken', {
                     userID: userID,
                     token: token,
                     nickname: nickname,

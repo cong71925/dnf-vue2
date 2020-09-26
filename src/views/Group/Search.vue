@@ -31,8 +31,8 @@
 export default {
   props: { keyword: {}, page: { default: "1" } },
   components: {
-    "search-card": () => import("./components/SearchCard"),
-    "not-fount": () => import("@/components/NotFount"),
+    SearchCard: () => import("./components/SearchCard"),
+    NotFount: () => import("@/components/NotFount"),
   },
   created() {
     if (this.keyword !== undefined) this.getData(this.keyword);

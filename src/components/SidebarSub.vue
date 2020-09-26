@@ -17,7 +17,7 @@
       </div>
     </el-tooltip>
     <el-collapse-transition>
-      <div v-show="active" class="context">
+      <div v-show="active" class="content">
         <slot></slot>
       </div>
     </el-collapse-transition>
@@ -82,7 +82,7 @@ export default {
   white-space: nowrap;
   transition: border-color 0.3s, background-color 0.3s, color 0.3s;
 }
-.context {
+.content {
   margin: 0 0 0 10px;
 }
 .icon {

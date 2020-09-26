@@ -3,7 +3,7 @@
     <el-main class="el-main">
       <el-backtop></el-backtop>
       <div class="banner">
-        <div class="context">
+        <div class="content">
           <div class="title">
             <h1>DNF团队数据管理系统</h1>
             <p>轻松创建您的团队！</p>
@@ -35,7 +35,7 @@
         </div>
       </div>
       <div class="card-show">
-        <div class="context">
+        <div class="content">
           <el-card class="auto-hide">
             <img src="@/assets/element-ui.jpg" style="width: auto;height: 250px;" alt="fit" />
           </el-card>
@@ -47,7 +47,7 @@
         </div>
       </div>
       <div class="charts-show">
-        <div class="context">
+        <div class="content">
           <div class="title">
             <h1>直观的数据展示方式</h1>
             <p>通过图表展示数据，直观又好看！</p>
@@ -82,7 +82,7 @@
         </div>
       </div>
       <div class="bottom-show">
-        <div class="context">
+        <div class="content">
           <div class="snow-man-box">
             <div>
               <img class="snow-man-1" src="@/assets/fatSnowMan/伊斯塔肥灵.png" alt="fit" />
@@ -108,7 +108,7 @@
         </div>
       </div>
       <div class="footer">
-        <div class="context">
+        <div class="content">
           <div class="icon-box">
             <el-link href="https://github.com/cong71925/dnf-vue2" :underline="false" target="_blank">
               <icon-base icon-name="github" height="30" width="30" class="icon">
@@ -229,7 +229,7 @@ export default {
   }
 }
 
-.context {
+.content {
   margin: auto;
   display: flex;
   justify-content: space-between;
@@ -278,7 +278,7 @@ export default {
 .card-show {
   width: 100%;
   background-color: #f2f6fc;
-  .context {
+  .content {
     animation: fadeIn 2s;
     .title {
       text-align: right;
@@ -290,7 +290,7 @@ export default {
   width: 100%;
   overflow: hidden;
   background-color: white;
-  .context {
+  .content {
     flex-direction: column;
     justify-content: flex-start;
   }
@@ -299,7 +299,7 @@ export default {
 .bottom-show {
   width: 100%;
   background-color: #f2f6fc;
-  .context {
+  .content {
     .title {
       text-align: right;
     }
@@ -340,7 +340,7 @@ export default {
 .footer {
   background-color: white;
 
-  .context {
+  .content {
     justify-content: center;
   }
 
@@ -361,7 +361,7 @@ export default {
   .auto-hide {
     display: none;
   }
-  .context {
+  .content {
     .title {
       h1 {
         font-size: 20px;

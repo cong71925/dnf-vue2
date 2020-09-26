@@ -1,9 +1,9 @@
 <template>
-  <div v-html="html" class="MDViewer"></div>
+  <div v-html="html" class="md-viewer"></div>
 </template>
 
 <script>
-import marked from "marked";
+const marked = require("marked");
 export default {
   props: {
     data: {
@@ -19,7 +19,7 @@ export default {
 };
 </script>
 <style lang="scss">
-.MDViewer {
+.md-viewer {
   blockquote {
     margin: 0;
     border-left-style: solid;
@@ -58,6 +58,9 @@ export default {
   }
   a {
     color: #409eff;
+  }
+  a:hover {
+    border-bottom: 1px solid #409eff;
   }
 }
 </style>

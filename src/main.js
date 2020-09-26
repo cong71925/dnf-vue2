@@ -5,7 +5,7 @@ import store from './store'
 import ElementUI from 'element-ui'
 import './style/element-variables.scss'
 
-Vue.config.productionTip = true
+Vue.config.productionTip = false
 Vue.use(ElementUI)
 
 new Vue({
